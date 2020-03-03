@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/index/main",
+    "pages/orders/main",
+    "pages/profile/main",
+    "pages/test/main",
+    "pages/express/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#ccc",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/main",
+        "text": "主页",
+        "iconPath": "static/tabs/index.png",
+        "selectedIconPath": "static/tabs/index-active.png"
+      },
+      {
+        "pagePath": "pages/orders/main",
+        "text": "订单",
+        "iconPath": "static/tabs/orders.png",
+        "selectedIconPath": "static/tabs/orders-active.png"
+      },
+      {
+        "pagePath": "pages/profile/main",
+        "text": "我的",
+        "iconPath": "static/tabs/profile.png",
+        "selectedIconPath": "static/tabs/profile-active.png"
+      },
+      {
+        "pagePath": "pages/test/main",
+        "text": "测试功能",
+        "iconPath": "static/tabs/test.png",
+        "selectedIconPath": "static/tabs/test-active.png"
+      }
+    ]
+  }
+}
