@@ -47,113 +47,7 @@ let funcs = {
 let storePageExpress = {
   namespaced: true,
   state: {
-    shopDetail: {
-      iconPath: "/static/icon/store.png",
-      name: "苏园黄河路店",
-      busitime: "外送时间：10:30-19:30  ",
-      cost: "起送价：￥ 50.00 丨 配送费  ¥ 4.00"
-    },
-    categories: {
-      0: {
-        id: "0",
-        iconPath: "/static/icon/fire.png",
-        text: "热销",
-        foodList: ["1", "2", "3", "4", "5", "6", "7", "8"]
-      },
-      1: {
-        id: "1",
-        iconPath: "/static/icon/bonus.png",
-        text: "优惠",
-        foodList: ["1", "2", "3", "4", "5"]
-      },
-      2: {
-        id: "2",
-        text: "特色菜系",
-        foodList: []
-      },
-      3: {
-        id: "3",
-        text: "全球美食",
-        newAdded: 1,
-        foodList: []
-      }
-    },
     selectedCategoryId: "0",
-    allItems: {
-      1: {
-        id: "1",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤鸡",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
-        costText: "¥ 4.5",
-        price: 4.5,
-        storage: 2
-      },
-      2: {
-        id: "2",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香茶叶蛋",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
-        costText: "¥ 4.5",
-        price: 4.5,
-        suit: ["1", "3", "4"],
-        storage: 2
-      },
-      3: {
-        id: "3",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤鸭",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
-        costText: "¥ 4.5",
-        price: 4.5,
-        storage: 1
-      },
-      4: {
-        id: "4",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤牛肉",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
-        costText: "¥ 4.5",
-        price: 4.5,
-        storage: 1
-      },
-      5: {
-        id: "5",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤火腿肠",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
-        costText: "¥ 4.5",
-        price: 4.5,
-        storage: 1
-      },
-      6: {
-        id: "6",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤大白菜",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
-        costText: "¥ 4.5",
-        price: 4.5,
-        storage: 1
-      },
-      7: {
-        id: "7",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤鱼",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
-        costText: "¥ 4.5",
-        price: 4.5,
-        storage: 1
-      },
-      8: {
-        id: "8",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤猪肉",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
-        costText: "¥ 4.5",
-        price: 4.5,
-        storage: 1
-      }
-    },
     cartItemList: [],
     showPayDetail: false,
     currentItemInDetailShow: "1",
@@ -209,6 +103,11 @@ let storePageExpress = {
     }
   },
   getters: {
+    getAllItems(state, getters, rootState, rootGetters) {
+      let res = rootGetters["storeGlobal/getAllItems"];
+      console.log(res);
+      return res;
+    },
     getOrder(state) {
       utils.log("getters getOrder in storePageExpress, order: ", state.order);
       return state.order;
@@ -227,8 +126,8 @@ let storePageExpress = {
       );
       return state.showItemDetail;
     },
-    getCurrentItemInDetailShow(state) {
-      let allItems = state.allItems;
+    getCurrentItemInDetailShow(state, getters) {
+      let allItems = getters["getAllItems"];
       let res = allItems[state.currentItemInDetailShow];
       res.suitItems = [];
       if (res.suit) {
@@ -240,12 +139,8 @@ let storePageExpress = {
       );
       return res;
     },
-    getShopDetail(state) {
-      utils.log(
-        "getters getShopDetail in storePageExpress, value: ",
-        state.shopDetail
-      );
-      return state.shopDetail;
+    getShopDetail(state, getters, rootState, rootGetters) {
+      return rootGetters["storeGlobal/getShopDetail"];
     },
     getSelectedCategoryId(state) {
       utils.log(
@@ -254,15 +149,12 @@ let storePageExpress = {
       );
       return state.selectedCategoryId;
     },
-    getCategories(state) {
-      utils.log(
-        "getters getCategories in storePageExpress, value: ",
-        state.categories
-      );
-      return state.categories;
+    getCategories(state, getters, rootState, rootGetters) {
+      let res = rootGetters["storeGlobal/getCategories"];
+      return res;
     },
-    getSelectedCategory(state) {
-      let categories = state.categories;
+    getSelectedCategory(state, getters) {
+      let categories = getters["getCategories"];
       let selectedCategoryId = state.selectedCategoryId;
       let targetCategory = categories[selectedCategoryId];
       utils.log(
@@ -271,9 +163,9 @@ let storePageExpress = {
       );
       return targetCategory;
     },
-    getCartItemList(state) {
+    getCartItemList(state, getters) {
       let res = state.cartItemList;
-      let allItems = state.allItems;
+      let allItems = getters["getAllItems"];
       res.forEach(item => (item.detail = allItems[item.id]));
       utils.log(
         "getters getCartItemList in storePageExpress, cartItemList: ",
@@ -281,9 +173,10 @@ let storePageExpress = {
       );
       return res;
     },
-    getFoodListByCurrentSelectedCategory(state) {
-      let categories = state.categories;
-      let allItems = state.allItems;
+    getFoodListByCurrentSelectedCategory(state, getters) {
+      let categories = getters["getCategories"];
+      console.log(categories);
+      let allItems = getters["getAllItems"];
       let selectedCategoryId = state.selectedCategoryId;
       let targetCategory = categories[selectedCategoryId];
       let targetFoodList = targetCategory.foodList.map(
@@ -298,11 +191,11 @@ let storePageExpress = {
     }
   },
   actions: {
-    actAddItem2Cart({ dispatch, commit, state }, obj) {
+    actAddItem2Cart({ dispatch, commit, state, getters }, obj) {
       utils.log("actions actAddItem2Cart in storePageExpress, obj: ", obj);
       funcs.addItem2Cart(
         obj.id,
-        state.allItems,
+        getters["getAllItems"],
         state.cartItemList,
         obj.success,
         obj.fail
@@ -310,14 +203,14 @@ let storePageExpress = {
       commit("setCartItemList", state.cartItemList);
       dispatch("actUpdateOrder");
     },
-    actRemoveItemFromCart({ dispatch, commit, state }, obj) {
+    actRemoveItemFromCart({ dispatch, commit, state, getters }, obj) {
       utils.log(
         "actions actRemoveItemFromCart in storePageExpress, obj: ",
         obj
       );
       funcs.removeItemFromCart(
         obj.id,
-        state.allItems,
+        getters["getAllItems"],
         state.cartItemList,
         obj.success,
         obj.fail
@@ -325,17 +218,17 @@ let storePageExpress = {
       commit("setCartItemList", state.cartItemList);
       dispatch("actUpdateOrder");
     },
-    actRemoveAllFromCart({ dispatch, commit, state }) {
+    actRemoveAllFromCart({ dispatch, commit, state, getters }) {
       utils.log("actions actRemoveAllFromCart in storePageExpress");
-      funcs.removeAllFromCart(state.allItems, state.cartItemList);
+      funcs.removeAllFromCart(getters["getAllItems"], state.cartItemList);
       commit("setShowPayDetail", false);
       commit("setCartItemList", state.cartItemList);
       dispatch("actUpdateOrder");
     },
-    actUpdateOrder({ commit, state }) {
+    actUpdateOrder({ commit, state, getters }) {
       let cartItemList = state.cartItemList;
       let order = state.order;
-      let allItems = state.allItems;
+      let allItems = getters["getAllItems"];
       let origin = 0;
       cartItemList.forEach(cartItem => {
         origin += allItems[cartItem.id].price * cartItem.count;

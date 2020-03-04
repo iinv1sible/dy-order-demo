@@ -33,6 +33,9 @@
     <div v-if="selectedId === 2" class="po-order-list">
       <div v-for="order in expressOrderList" :key="id">
         <express-order-item
+          @detail="handlerShowDetail(order.id)"
+          @pay="handlerPay(order.id)"
+          @again="handlerAgain(order.id)"
           :id="order.id"
           :status="order.status"
           :shopName="order.shopName"
@@ -76,7 +79,20 @@ export default {
     handlerSelect(id) {
       this.actSelectTab(id);
     },
-    ...mapActions("storePages/storePageOrders", ["actSelectTab"]),
+    handlerShowDetail(id) {
+      console.log("handlerShowDetail");
+      this.actShowExpressOrderDetail(id);
+    },
+    handlerPay() {
+      console.log("handlerPay");
+    },
+    handlerAgain() {
+      console.log("handlerAgain");
+    },
+    ...mapActions("storePages/storePageOrders", [
+      "actSelectTab",
+      "actShowExpressOrderDetail"
+    ]),
     ...mapMutations("storePages/storePageOrders", ["setLoaded"])
   },
   mounted() {

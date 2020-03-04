@@ -4,7 +4,9 @@
     "pages/orders/main",
     "pages/profile/main",
     "pages/test/main",
-    "pages/express/main"
+    "pages/express/main",
+    "pages/orderDetail/main",
+    "pages/orderConfirm/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

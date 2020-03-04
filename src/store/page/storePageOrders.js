@@ -1,5 +1,7 @@
 import utils from "@/utils/utils";
 import paths from "@/static/paths";
+import nativeMgr from "@/native/NativeMgr";
+let native = nativeMgr.getNative();
 let storePageOrders = {
   namespaced: true,
   state: {
@@ -46,44 +48,6 @@ let storePageOrders = {
         room: "龙井问茶",
         reserveGold: "¥ 200"
       }
-    ],
-    expressOrderList: [
-      {
-        id: 1,
-        status: 1,
-        shopName: "苏园黄河路店",
-        time: "2020-01-20 11:10",
-        foodDetail: "牛肉石锅拌饭+大酱汤 等2件",
-        cost: "¥ 200",
-        payDeadline: "15分钟"
-      },
-      {
-        id: 2,
-        status: 2,
-        shopName: "苏园黄河路店",
-        time: "2020-01-20 11:10",
-        foodDetail: "牛肉石锅拌饭+大酱汤 等2件",
-        cost: "¥ 200",
-        payDeadline: "15分钟"
-      },
-      {
-        id: 3,
-        status: 3,
-        shopName: "苏园黄河路店",
-        time: "2020-01-20 11:10",
-        foodDetail: "牛肉石锅拌饭+大酱汤 等2件",
-        cost: "¥ 200",
-        payDeadline: "15分钟"
-      },
-      {
-        id: 4,
-        status: 4,
-        shopName: "苏园黄河路店",
-        time: "2020-01-20 11:10",
-        foodDetail: "牛肉石锅拌饭+大酱汤 等2件",
-        cost: "¥ 200",
-        payDeadline: "15分钟"
-      }
     ]
   },
   getters: {
@@ -98,13 +62,13 @@ let storePageOrders = {
       );
       return state.navbarTabConfig.selectedId;
     },
-    getOrderList(state, getters) {
+    getOrderList(state, getters, rootState, rootGetters) {
       let selectedId = state.navbarTabConfig.selectedId;
       let resOrderList = [];
       if (selectedId === 1) {
         resOrderList = state.reserveOrderList;
       } else if (selectedId === 2) {
-        resOrderList = state.expressOrderList;
+        resOrderList = rootGetters["storeGlobal/expressOrderList"];
       }
       return resOrderList;
     },
@@ -115,12 +79,9 @@ let storePageOrders = {
       );
       return state.reserveOrderList;
     },
-    getExpressOrderList(state) {
-      utils.log(
-        "getters getExpressOrderList in storePageOrders, value: ",
-        state.expressOrderList
-      );
-      return state.expressOrderList;
+    getExpressOrderList(state, getters, rootState, rootGetters) {
+      let resOrderList = rootGetters["storeGlobal/expressOrderList"];
+      return resOrderList;
     },
     getNavbarTabConfig(state) {
       utils.log(
@@ -160,6 +121,14 @@ let storePageOrders = {
     actSelectTab({ commit }, id) {
       utils.log("actions actSelectTab in storePageOrders, id: ", id);
       commit("setTabSelectedId", id);
+    },
+    actShowExpressOrderDetail({ commit }, id) {
+      utils.log(
+        "actions actShowExpressOrderDetail in storePageOrders, id: ",
+        id
+      );
+      commit("storePages/storePageOrderDetail/setOrderId", id, { root: true });
+      native.nav2("/pages/orderDetail/main");
     }
   },
   mutations: {

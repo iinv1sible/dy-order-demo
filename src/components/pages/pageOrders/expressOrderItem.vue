@@ -1,5 +1,5 @@
 <template>
-  <div class="eoi-container">
+  <div @click="onDetail" class="eoi-container">
     <div class="eoi-top">
       <div class="eoi-top-left">
         <div>
@@ -10,10 +10,9 @@
         <div>{{time}}</div>
       </div>
       <div class="eoi-top-right">
-        <text :style="{color:'red'}" v-if="status===1">预订单已提交，待付款</text>
-        <text :style="{color:'#A5A5A5'}" v-if="status===2">待商家接单</text>
-        <text :style="{color:'#A5A5A5'}" v-if="status===3">配送中</text>
-        <text :style="{color:'#A5A5A5'}" v-if="status===4">已送达</text>
+        <text
+          :style="{color:status===ORDER_STATUS.WAIT_PAY?'red':'#A5A5A5'}"
+        >{{ORDER_STATUS_DESC_MAP[status]}}</text>
       </div>
     </div>
     <div class="eoi-center">
@@ -24,21 +23,17 @@
         <text>{{cost}}</text>
       </div>
     </div>
-    <div class="eoi-bottom" v-if="status!==3">
-      <div v-if="status===1">
+    <div class="eoi-bottom" v-if="showBottomBar">
+      <div v-if="status===ORDER_STATUS.WAIT_PAY">
         <text>请在{{payDeadline}}内完成支付</text>
-        <simpleButton plain="plain" text="立即支付"></simpleButton>
-      </div>
-      <div v-if="status===2">
-        <div>
-          <simpleButton plain="plain" text="取消订单"></simpleButton>
+        <div @click.stop="onPay">
+          <simpleButton plain="plain" text="立即支付"></simpleButton>
         </div>
       </div>
-      <div v-if="status===4">
-        <div style="margin-right:14rpx">
-          <simpleButton plain="plain" text="投诉反馈"></simpleButton>
-        </div>
-        <div>
+      <div
+        v-if="status === ORDER_STATUS.EXPRESSED || status === ORDER_STATUS.FETCHED || status === ORDER_STATUS.CANCELED"
+      >
+        <div @click.stop="onAgain">
           <simpleButton plain="plain" text="再来一单"></simpleButton>
         </div>
       </div>
@@ -49,6 +44,7 @@
 <script>
 import simpleButton from "@/components/button/simpleButton";
 import qicon from "@/components/icon/qicon";
+import config from "@/static/config";
 export default {
   props: [
     "id",
@@ -59,9 +55,38 @@ export default {
     "cost",
     "payDeadline"
   ],
+  data() {
+    return {
+      ORDER_STATUS_DESC_MAP: config.ORDER_STATUS_DESC_MAP,
+      ORDER_STATUS: config.ORDER_STATUS
+    };
+  },
   components: {
     simpleButton,
     qicon
+  },
+  computed: {
+    showBottomBar() {
+      return (
+        [
+          this.ORDER_STATUS.WAIT_PAY,
+          this.ORDER_STATUS.EXPRESSED,
+          this.ORDER_STATUS.FETCHED,
+          this.ORDER_STATUS.CANCELED
+        ].indexOf(this.status) != -1
+      );
+    }
+  },
+  methods: {
+    onDetail() {
+      this.$emit("detail");
+    },
+    onPay() {
+      this.$emit("pay");
+    },
+    onAgain() {
+      this.$emit("again");
+    }
   }
 };
 </script>

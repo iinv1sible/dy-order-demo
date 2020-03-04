@@ -28,7 +28,9 @@
       </div>
     </div>
     <div class="pb-right" :style="{backgroundColor:isCartEmpty?'#BEBEBE':'#d7ba79'}">
-      <text class="pb-ready-2-pay" :style="{color:isCartEmpty?'#fff':'#333333'}">去结算</text>
+      <div @click="onPay">
+        <text class="pb-ready-2-pay" :style="{color:isCartEmpty?'#fff':'#333333'}">去结算</text>
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +52,9 @@ export default {
   methods: {
     onShowCart() {
       if (!this.isCartEmpty) this.$emit("showCart");
+    },
+    onPay() {
+      this.$emit("pay");
     }
   }
 };

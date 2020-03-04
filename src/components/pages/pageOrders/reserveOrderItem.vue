@@ -78,9 +78,12 @@ export default {
   height: 280rpx;
   border-radius: 20rpx;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
 }
 .oi-top {
   display: flex;
+  width: 672rpx;
   justify-content: space-between;
   align-items: center;
   padding: 18rpx 24rpx 36rpx 18rpx;
@@ -95,6 +98,7 @@ export default {
   border-bottom: 1px solid #e8e8e8;
 }
 .oi-bottom {
+  width: 672rpx;
   display: flex;
   align-items: center;
   justify-content: flex-end;

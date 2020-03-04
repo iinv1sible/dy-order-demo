@@ -23,6 +23,7 @@
     </div>
     <div class="pe-pay-bar">
       <pay-bar
+        @pay="handlerPay"
         @showCart="handlerShowCart"
         :origin="order.origin"
         :now="order.now"
@@ -126,6 +127,9 @@ export default {
     },
     handlerShowCart() {
       this.setShowPayDetail(!this.showPayDetail);
+    },
+    handlerPay() {
+      native.nav2("/pages/orderConfirm/main");
     },
     ...mapActions("storePages/storePageExpress", [
       "actAddItem2Cart",

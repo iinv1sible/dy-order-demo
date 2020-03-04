@@ -7,7 +7,7 @@
   >
     <qicon :size="iconSize?iconSize:'20rpx'" :path="iconPath"></qicon>
     <text
-      :style="{fontSize:fontSize?fontSize:'20rpx',color:fontColor?fontColor:'#000'}"
+      :style="{fontSize:fontSize?fontSize:'20rpx',color:fontColor?fontColor:'#000',marginLeft:space?space:'0'}"
     >{{label?label:"按钮"}}</text>
   </div>
 </template>
@@ -22,7 +22,8 @@ export default {
     "fontSize",
     "fontColor",
     "containerWidth",
-    "containerHeight"
+    "containerHeight",
+    "space"
   ],
   components: {
     qicon
