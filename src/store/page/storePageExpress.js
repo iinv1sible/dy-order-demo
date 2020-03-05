@@ -48,15 +48,9 @@ let storePageExpress = {
   namespaced: true,
   state: {
     selectedCategoryId: "0",
-    cartItemList: [],
     showPayDetail: false,
     currentItemInDetailShow: "1",
-    showItemDetail: false,
-    order: {
-      origin: 0,
-      now: 0,
-      expressCost: 0
-    }
+    showItemDetail: false
   },
   mutations: {
     setSelectedCatId(state, id) {
@@ -64,13 +58,6 @@ let storePageExpress = {
         state.selectedCategoryId = id;
         utils.log("mutations setSelectedCatId in storePageExpress, id: ", id);
       }
-    },
-    setCartItemList(state, cartItemList) {
-      utils.log(
-        "mutations setCartItemList in storePageExpress, cartItemList: ",
-        cartItemList
-      );
-      state.cartItemList = cartItemList;
     },
     setCurrentItemInDetailShow(state, id) {
       state.currentItemInDetailShow = id;
@@ -96,10 +83,6 @@ let storePageExpress = {
           show
         );
       }
-    },
-    setOrder(state, order) {
-      utils.log("mutations setOrder in storePageExpress, order: ", order);
-      state.order = order;
     }
   },
   getters: {
@@ -107,10 +90,6 @@ let storePageExpress = {
       let res = rootGetters["storeGlobal/getAllItems"];
       console.log(res);
       return res;
-    },
-    getOrder(state) {
-      utils.log("getters getOrder in storePageExpress, order: ", state.order);
-      return state.order;
     },
     getShowPayDetail(state) {
       utils.log(
@@ -163,15 +142,8 @@ let storePageExpress = {
       );
       return targetCategory;
     },
-    getCartItemList(state, getters) {
-      let res = state.cartItemList;
-      let allItems = getters["getAllItems"];
-      res.forEach(item => (item.detail = allItems[item.id]));
-      utils.log(
-        "getters getCartItemList in storePageExpress, cartItemList: ",
-        res
-      );
-      return res;
+    getCartItemList(state, getters, rootState, rootGetters) {
+      return rootGetters["storeGlobal/getCartItemList"];
     },
     getFoodListByCurrentSelectedCategory(state, getters) {
       let categories = getters["getCategories"];
@@ -193,53 +165,37 @@ let storePageExpress = {
   actions: {
     actAddItem2Cart({ dispatch, commit, state, getters }, obj) {
       utils.log("actions actAddItem2Cart in storePageExpress, obj: ", obj);
+      let cartItemList = getters.getCartItemList;
       funcs.addItem2Cart(
         obj.id,
         getters["getAllItems"],
-        state.cartItemList,
+        cartItemList,
         obj.success,
         obj.fail
       );
-      commit("setCartItemList", state.cartItemList);
-      dispatch("actUpdateOrder");
+      commit("storeGlobal/setCartItemList", cartItemList, { root: true });
     },
     actRemoveItemFromCart({ dispatch, commit, state, getters }, obj) {
       utils.log(
         "actions actRemoveItemFromCart in storePageExpress, obj: ",
         obj
       );
+      let cartItemList = getters.getCartItemList;
       funcs.removeItemFromCart(
         obj.id,
         getters["getAllItems"],
-        state.cartItemList,
+        cartItemList,
         obj.success,
         obj.fail
       );
-      commit("setCartItemList", state.cartItemList);
-      dispatch("actUpdateOrder");
+      commit("storeGlobal/setCartItemList", cartItemList, { root: true });
     },
     actRemoveAllFromCart({ dispatch, commit, state, getters }) {
       utils.log("actions actRemoveAllFromCart in storePageExpress");
-      funcs.removeAllFromCart(getters["getAllItems"], state.cartItemList);
+      let cartItemList = getters.getCartItemList;
+      funcs.removeAllFromCart(getters["getAllItems"], cartItemList);
       commit("setShowPayDetail", false);
-      commit("setCartItemList", state.cartItemList);
-      dispatch("actUpdateOrder");
-    },
-    actUpdateOrder({ commit, state, getters }) {
-      let cartItemList = state.cartItemList;
-      let order = state.order;
-      let allItems = getters["getAllItems"];
-      let origin = 0;
-      cartItemList.forEach(cartItem => {
-        origin += allItems[cartItem.id].price * cartItem.count;
-      });
-      let now = origin;
-      let expressCost = 5;
-      commit("setOrder", {
-        origin,
-        now,
-        expressCost
-      });
+      commit("storeGlobal/setCartItemList", cartItemList, { root: true });
     }
   }
 };

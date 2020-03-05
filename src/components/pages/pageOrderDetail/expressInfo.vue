@@ -3,24 +3,26 @@
     <div class="ei-title">配送信息</div>
     <div class="ei-time">
       <text>送达时间</text>
-      <text>尽快送达</text>
+      <text>{{time}}</text>
     </div>
     <div class="ei-address">
       <text>收货地址</text>
       <div>
-        <text>越秀区东风中路268号1109-1110</text>
-        <text>张小白 181 0000 0000</text>
+        <text>{{address}}{{door}}</text>
+        <text>{{receiverName}}{{receiverContact}}</text>
       </div>
     </div>
     <div class="ei-method">
       <text>配送方式</text>
-      <text>商家自送</text>
+      <text>{{who}}</text>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["time", "address", "door", "receiverName", "receiverContact", "who"]
+};
 </script>
 
 <style scoped>

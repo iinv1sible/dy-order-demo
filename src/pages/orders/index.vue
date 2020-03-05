@@ -38,11 +38,11 @@
           @again="handlerAgain(order.id)"
           :id="order.id"
           :status="order.status"
-          :shopName="order.shopName"
-          :foodDetail="order.foodDetail"
+          :shopName="order.shopDetail.name"
+          :foodDetailDesc="order.foodDetailDesc"
+          :foodNumDesc="order.foodNumDesc"
           :time="order.time"
-          :cost="order.cost"
-          :payDeadline="order.payDeadline"
+          :cost="order.totalCostDesc"
         ></express-order-item>
       </div>
     </div>

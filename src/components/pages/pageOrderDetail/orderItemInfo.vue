@@ -1,24 +1,23 @@
 <template>
   <div class="oii-container">
-    <div class="oii-top">嘉和一品粥（国展店）</div>
+    <div class="oii-top">{{shopName}}</div>
     <div class="oii-center">
-      <div>
-        <order-item iconPath="/static/icon/food.jpg" name="五香茶叶蛋" count="x 2" cost="¥4.5"></order-item>
+      <div v-for="item in itemList" :key="id">
+        <order-item
+          :iconPath="item.detail.iconPath"
+          :name="item.detail.nameText"
+          :count="item.countDesc"
+          :cost="item.costDesc"
+        ></order-item>
       </div>
-      <div>
-        <order-item iconPath="/static/icon/food.jpg" name="五香茶叶蛋" count="x 2" cost="¥4.5"></order-item>
+      <div v-if="packCostDesc">
+        <order-item-pack :cost="packCostDesc"></order-item-pack>
       </div>
-      <div>
-        <order-item iconPath="/static/icon/food.jpg" name="五香茶叶蛋" count="x 2" cost="¥4.5"></order-item>
+      <div v-if="expressCostDesc">
+        <order-item-express-cost :cost="expressCostDesc"></order-item-express-cost>
       </div>
-      <div>
-        <order-item-pack cost="¥4.5"></order-item-pack>
-      </div>
-      <div>
-        <order-item-express-cost cost="¥4.5"></order-item-express-cost>
-      </div>
-      <div>
-        <order-item-bonus bonus="- ¥4.5"></order-item-bonus>
+      <div v-if="bonusDesc">
+        <order-item-bonus :bonus="bonusDesc"></order-item-bonus>
       </div>
     </div>
     <div class="oii-bottom">
@@ -36,7 +35,7 @@
       </div>
       <div class="oii-bottom-cost">
         <text>应付</text>
-        <text>¥41.5</text>
+        <text>{{totalCostDesc}}</text>
       </div>
     </div>
     <div class="oii-cancel-order">
@@ -62,6 +61,14 @@ import orderItemExpressCost from "@/components/pages/pageOrderDetail/orderItemEx
 import iconButton from "@/components/button/iconButton";
 import simpleButton from "@/components/button/simpleButton";
 export default {
+  props: [
+    "shopName",
+    "itemList",
+    "packCostDesc",
+    "expressCostDesc",
+    "bonusDesc",
+    "totalCostDesc"
+  ],
   components: {
     orderItem,
     orderItemBonus,

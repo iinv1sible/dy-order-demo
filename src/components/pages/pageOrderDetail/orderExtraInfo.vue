@@ -2,13 +2,15 @@
   <div class="oei-container">
     <div class="oei-title">备注信息</div>
     <div class="oei-detail">
-      <text>这里填写备注信息</text>
+      <text>{{note}}</text>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["note"]
+};
 </script>
 
 <style scoped>

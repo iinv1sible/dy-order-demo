@@ -28,6 +28,10 @@ export default {
   color: #101010;
   font-size: 28rpx;
   margin-left: 16rpx;
+  width: 200rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .oi-count {
   font-size: 24rpx;

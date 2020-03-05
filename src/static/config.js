@@ -19,6 +19,27 @@ let config = {
     EXPRESSED: 4,
     FETCHED: 5,
     CANCELED: 6
+  },
+  ORDER_EXPRESS_METHOD: {
+    EXPRESS: 1,
+    SELF: 2
+  },
+  ORDER_EXPRESS_WHO: {
+    SELF: 1
+  },
+  ORDER_EXPRESS_WHO_DESC_MAP: {
+    1: "商家自送"
+  },
+  ORDER_PAY_METHOD: {
+    ONLINE: 1
+  },
+  GENDER_TYPE: {
+    MALE: 1,
+    FEMALE: 2
+  },
+  GENDER_TYPE_DESC_MAP: {
+    1: "男士",
+    2: "女士"
   }
 };
 

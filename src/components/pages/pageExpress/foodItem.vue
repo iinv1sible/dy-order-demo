@@ -82,10 +82,18 @@ export default {
   font-size: 28rpx;
   font-weight: bold;
   color: #101010;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 310rpx;
 }
 .fi-info {
   font-size: 24rpx;
   color: #bfbdbd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 310rpx;
 }
 .fi-cost {
   font-size: 40rpx;

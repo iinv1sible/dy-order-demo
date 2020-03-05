@@ -9,7 +9,6 @@
       height="42rpx"
       borderRadius="0"
     ></simple-button>
-    <text class="oi-name">店铺满减优惠</text>
     <text class="oi-bonus">{{bonus}}</text>
   </div>
 </template>

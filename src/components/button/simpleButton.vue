@@ -11,6 +11,7 @@ export default {
     "text",
     "color",
     "fontSize",
+    "fontWeight",
     "plain",
     "border",
     "backgroundColor",
@@ -35,7 +36,8 @@ export default {
             : "1px solid #D7BA79"
           : "",
         color: this.color ? this.color : "#000",
-        fontSize: this.fontSize ? this.fontSize : "24rpx"
+        fontSize: this.fontSize ? this.fontSize : "24rpx",
+        fontWeight: this.fontWeight ? this.fontWeight : ""
       });
     }
   }

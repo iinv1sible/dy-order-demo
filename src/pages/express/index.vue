@@ -25,9 +25,9 @@
       <pay-bar
         @pay="handlerPay"
         @showCart="handlerShowCart"
-        :origin="order.origin"
-        :now="order.now"
-        :expressCost="order.expressCost"
+        :origin="cartCost.origin"
+        :now="cartCost.now"
+        :expressCost="cartCost.expressCost"
         :cartItemList="cartItemList"
       ></pay-bar>
     </div>
@@ -82,8 +82,10 @@ export default {
       selectedCategory: "getSelectedCategory",
       currentItemInDetailShow: "getCurrentItemInDetailShow",
       showPayDetail: "getShowPayDetail",
-      showItemDetail: "getShowItemDetail",
-      order: "getOrder"
+      showItemDetail: "getShowItemDetail"
+    }),
+    ...mapGetters("storeGlobal", {
+      cartCost: "getCartCost"
     })
   },
   methods: {

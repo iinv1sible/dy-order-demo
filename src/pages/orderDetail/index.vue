@@ -7,16 +7,30 @@
       </div>
     </div>
     <div class="pod-order-item-info">
-      <order-item-info></order-item-info>
+      <order-item-info
+        :shopName="order.shopDetail.name"
+        :itemList="order.itemList"
+        :packCostDesc="order.packCostDesc"
+        :expressCostDesc="order.expressCostDesc"
+        :bonusDesc="order.bonusDesc"
+        :totalCostDesc="order.totalCostDesc"
+      ></order-item-info>
     </div>
-    <div class="pod-express-info">
-      <express-info></express-info>
+    <div v-if="isExpress" class="pod-express-info">
+      <express-info
+        :time="order.expressInfo.time"
+        :address="order.expressInfo.address.address"
+        :door="order.expressInfo.address.door"
+        :receiverName="order.expressInfo.address.receiver.name"
+        :receiverContact="order.expressInfo.address.receiver.contact"
+        :who="expressWho"
+      ></express-info>
     </div>
     <div class="pod-order-info">
-      <order-info></order-info>
+      <order-info :no="order.no" :createTime="order.createTime"></order-info>
     </div>
     <div class="pod-order-extra-info">
-      <order-extra-info></order-extra-info>
+      <order-extra-info :note="order.note"></order-extra-info>
     </div>
     <div class="pod-pay-bar">
       <pay-bar></pay-bar>
@@ -50,7 +64,16 @@ export default {
   computed: {
     ...mapGetters("storePages/storePageOrderDetail", {
       order: "getOrder"
-    })
+    }),
+    isExpress() {
+      return this.order.expressMethod === config.ORDER_EXPRESS_METHOD.EXPRESS;
+    },
+    expressInfo() {
+      return this.order.expressInfo;
+    },
+    expressWho() {
+      return config.ORDER_EXPRESS_WHO_DESC_MAP[this.order.expressInfo.who];
+    }
   }
 };
 </script>

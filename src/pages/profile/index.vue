@@ -8,23 +8,14 @@
       <vip-card></vip-card>
     </div>
     <div class="pp-button-list">
-      <div>
-        <arrow-icon-button
-          iconPath="/static/icon/car.png"
-          text="收餐地址"
-        ></arrow-icon-button>
+      <div @click="handlerClickAdress">
+        <arrow-icon-button iconPath="/static/icon/car.png" text="收餐地址"></arrow-icon-button>
       </div>
       <div>
-        <arrow-icon-button
-          iconPath="/static/icon/question.png"
-          text="意见反馈"
-        ></arrow-icon-button>
+        <arrow-icon-button iconPath="/static/icon/question.png" text="意见反馈"></arrow-icon-button>
       </div>
       <div>
-        <arrow-icon-button
-          iconPath="/static/icon/contact.png"
-          text="联系我们"
-        ></arrow-icon-button>
+        <arrow-icon-button iconPath="/static/icon/contact.png" text="联系我们"></arrow-icon-button>
       </div>
     </div>
   </div>
@@ -34,11 +25,18 @@
 import vipCard from "@/components/pages/pageProfile/vipCard";
 import arrowIconButton from "@/components/pages/pageProfile/arrowIconButton";
 import userProfileButton from "@/components/button/userProfileButton";
+import nativeMgr from "@/native/NativeMgr";
+let native = nativeMgr.getNative();
 export default {
   components: {
     arrowIconButton,
     vipCard,
     userProfileButton
+  },
+  methods: {
+    handlerClickAdress() {
+      native.nav2("/pages/address/main");
+    }
   }
 };
 </script>

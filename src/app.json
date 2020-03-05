@@ -6,7 +6,9 @@
     "pages/test/main",
     "pages/express/main",
     "pages/orderDetail/main",
-    "pages/orderConfirm/main"
+    "pages/orderConfirm/main",
+    "pages/address/main",
+    "pages/addressEdit/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

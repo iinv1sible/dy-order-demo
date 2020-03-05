@@ -4,7 +4,7 @@
     <div class="oi-id">
       <text>订单号</text>
       <div>
-        <text>2115 9090 1771 6318 384</text>
+        <text>{{no}}</text>
         <text>|</text>
         <text>复制</text>
       </div>
@@ -15,13 +15,15 @@
     </div>
     <div class="oi-gen-time">
       <text>下单时间</text>
-      <text>2019-09-21 12:10</text>
+      <text>{{createTime}}</text>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["no", "createTime"]
+};
 </script>
 
 <style scoped>

@@ -33,7 +33,14 @@
       </div>
     </div>
     <div class="poc-order-item-info">
-      <order-item-info></order-item-info>
+      <order-item-info
+        :shopName="shopDetail.name"
+        :itemList="cartItemListWithCost.cartItemList"
+        :packCostDesc="cartItemListWithCost.cartCost.packCostDesc"
+        :expressCostDesc="cartItemListWithCost.cartCost.expressCostDesc"
+        :bonusDesc="cartItemListWithCost.cartCost.bonusDesc"
+        :totalCostDesc="cartItemListWithCost.cartCost.totalCostDesc"
+      ></order-item-info>
     </div>
     <div class="poc-order-extra-info-form">
       <order-extra-info-form></order-extra-info-form>
@@ -64,6 +71,10 @@ export default {
   computed: {
     ...mapGetters("storePages/storePageOrderConfirm", {
       method: "getMethod"
+    }),
+    ...mapGetters("storeGlobal", {
+      cartItemListWithCost: "getCartItemListWithCost",
+      shopDetail: "getShopDetail"
     })
   },
   methods: {

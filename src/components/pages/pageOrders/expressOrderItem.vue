@@ -17,7 +17,8 @@
     </div>
     <div class="eoi-center">
       <div class="eoi-center-left">
-        <text>{{foodDetail}}</text>
+        <text>{{foodDetailDesc}}</text>
+        <text>{{foodNumDesc}}</text>
       </div>
       <div class="eoi-center-right">
         <text>{{cost}}</text>
@@ -25,7 +26,7 @@
     </div>
     <div class="eoi-bottom" v-if="showBottomBar">
       <div v-if="status===ORDER_STATUS.WAIT_PAY">
-        <text>请在{{payDeadline}}内完成支付</text>
+        <text>请在15分钟内完成支付</text>
         <div @click.stop="onPay">
           <simpleButton plain="plain" text="立即支付"></simpleButton>
         </div>
@@ -51,7 +52,8 @@ export default {
     "status",
     "shopName",
     "time",
-    "foodDetail",
+    "foodDetailDesc",
+    "foodNumDesc",
     "cost",
     "payDeadline"
   ],
@@ -139,10 +141,17 @@ export default {
 }
 .eoi-center-left {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   font-size: 28rpx;
   color: #828282;
+}
+.eoi-center-left > text:first-of-type {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 320rpx;
+}
+.eoi-center-left > text:last-of-type {
+  margin-left: 16rpx;
 }
 .eoi-center-right {
   display: flex;
