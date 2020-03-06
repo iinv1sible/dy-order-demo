@@ -2,8 +2,8 @@ import Vue from "vue";
 import App from "./App";
 import Vuex from "vuex";
 import storeConf from "@/store/store";
-import "mpvue-weui/src/style/weui.css";
 import config from "@/static/config";
+import "mpvue-weui/src/style/weui.css";
 
 Vue.use(Vuex);
 let store = new Vuex.Store(storeConf);

@@ -19,10 +19,10 @@
     <div v-if="isExpress" class="pod-express-info">
       <express-info
         :time="order.expressInfo.time"
-        :address="order.expressInfo.address.address"
-        :door="order.expressInfo.address.door"
-        :receiverName="order.expressInfo.address.receiver.name"
-        :receiverContact="order.expressInfo.address.receiver.contact"
+        :address="order.expressInfo.address.address || ''"
+        :door="order.expressInfo.address.door || ''"
+        :receiverName="order.expressInfo.address.receiver.name || ''"
+        :receiverContact="order.expressInfo.address.receiver.contact || ''"
         :who="expressWho"
       ></express-info>
     </div>
@@ -44,7 +44,7 @@ import orderItemInfo from "@/components/pages/pageOrderDetail/orderItemInfo";
 import orderInfo from "@/components/pages/pageOrderDetail/orderInfo";
 import payBar from "@/components/pages/pageOrderConfirm/payBar";
 import orderExtraInfo from "@/components/pages/pageOrderDetail/orderExtraInfo";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import qicon from "@/components/icon/qicon";
 import config from "@/static/config";
 export default {
@@ -61,6 +61,9 @@ export default {
       ORDER_STATUS_DESC_MAP: config.ORDER_STATUS_DESC_MAP
     };
   },
+  onShow() {
+    this.actGetAddresses();
+  },
   computed: {
     ...mapGetters("storePages/storePageOrderDetail", {
       order: "getOrder"
@@ -74,6 +77,9 @@ export default {
     expressWho() {
       return config.ORDER_EXPRESS_WHO_DESC_MAP[this.order.expressInfo.who];
     }
+  },
+  methods: {
+    ...mapActions("storeGlobal", ["actGetAddresses"])
   }
 };
 </script>

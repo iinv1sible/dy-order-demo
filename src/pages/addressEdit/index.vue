@@ -1,10 +1,15 @@
 <template>
   <div class="pae-container">
     <div class="pae-form">
-      <address-form :formData="formData"></address-form>
+      <address-form
+        @inputChange="handlerInputChange"
+        @chooseLocation="handlerChooseLocation"
+        :formData="formData"
+        :genders="genders"
+      ></address-form>
     </div>
     <div class="pae-button-bar">
-      <div>
+      <div @click="handlerSave">
         <simpleButton
           text="保存地址"
           color="#333333"
@@ -16,7 +21,7 @@
           fontWeight="bold"
         ></simpleButton>
       </div>
-      <div v-if="type===2">
+      <div v-if="type===2" @click="handlerDel">
         <simpleButton
           text="删除地址"
           color="#333333"
@@ -36,7 +41,9 @@
 <script>
 import addressForm from "@/components/pages/pageAddress/addressForm";
 import simpleButton from "@/components/button/simpleButton";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
+import nativeMgr from "@/native/NativeMgr";
+let native = nativeMgr.getNative();
 export default {
   components: {
     addressForm,
@@ -45,8 +52,33 @@ export default {
   computed: {
     ...mapGetters("storePages/storePageAddressEdit", {
       type: "getType",
-      formData: "getFormData"
+      formData: "getFormData",
+      genders: "getGenders"
     })
+  },
+  methods: {
+    handlerChooseLocation() {
+      native.chooseLocation(res => {
+        this.setAddressByLocationInfo(res);
+      });
+    },
+    handlerInputChange(obj) {
+      this.setFormDataFromNameValue(obj);
+    },
+    handlerSave() {
+      this.actSaveAddress();
+    },
+    handlerDel() {
+      this.actDelAddress();
+    },
+    ...mapMutations("storePages/storePageAddressEdit", [
+      "setAddressByLocationInfo",
+      "setFormDataFromNameValue"
+    ]),
+    ...mapActions("storePages/storePageAddressEdit", [
+      "actSaveAddress",
+      "actDelAddress"
+    ])
   }
 };
 </script>

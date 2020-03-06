@@ -19,7 +19,7 @@
         ></rounded-button-bar>
       </div>
       <div class="index-shop-info">
-        <index-shop-info></index-shop-info>
+        <index-shop-info @chooseShop="handlerChooseShop"></index-shop-info>
       </div>
     </div>
   </div>
@@ -44,6 +44,10 @@ export default {
         //跳转到订餐外送页面
         native.nav2("/pages/express/main");
       }
+    },
+    handlerChooseShop() {
+      console.log("handlerChooseShop");
+      native.nav2("/pages/shopList/main");
     },
     ...mapMutations("storePages/storePageIndex", ["setLoaded"])
   },

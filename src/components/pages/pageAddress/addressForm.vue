@@ -1,10 +1,10 @@
 <template>
   <div class="af-container">
-    <div class="af-address">
+    <div @click="chooseLocation" class="af-address">
       <text>收货地址：</text>
       <div class="af-address-center">
-        <text>{{formData.address}}</text>
-        <text>浙江省宁波市鄞州区学士路与日历中路交叉口东侧</text>
+        <text>{{formData.addressName}}</text>
+        <text>{{formData.addressLocation}}</text>
       </div>
       <div>
         <qicon path="/static/icon/arrow-right.png" size="32rpx"></qicon>
@@ -12,16 +12,27 @@
     </div>
     <div class="af-door">
       <text>门牌号：</text>
-      <text>{{formData.door}}</text>
+      <input :value="formData.door" @input="onInputChange('door', $event)" />
     </div>
     <div class="af-name-gender">
       <text>联系人：</text>
-      <text>{{formData.name}}</text>
-      <div></div>
+      <input :value="formData.name" @input="onInputChange('name', $event)" />
+      <div>
+        <radio-group @change="onInputChange('gender', $event)">
+          <radio
+            v-for="gender in genders"
+            :key="gender"
+            :value="gender.value"
+            :checked="gender.checked"
+          >
+            <text>{{gender.text}}</text>
+          </radio>
+        </radio-group>
+      </div>
     </div>
     <div class="af-contact">
       <text>手机号：</text>
-      <text>{{formData.contact}}</text>
+      <input :value="formData.contact" @input="onInputChange('contact', $event)" />
     </div>
   </div>
 </template>
@@ -29,9 +40,18 @@
 <script>
 import qicon from "@/components/icon/qicon";
 export default {
-  props: ["formData"],
+  props: ["formData", "genders"],
   components: {
     qicon
+  },
+  methods: {
+    chooseLocation() {
+      this.$emit("chooseLocation");
+    },
+    onInputChange(name, e) {
+      console.log(name, e);
+      this.$emit("inputChange", { name, value: e.target.value });
+    }
   }
 };
 </script>
@@ -87,10 +107,15 @@ export default {
 .af-name-gender {
   display: flex;
   align-items: center;
+  position: relative;
 }
 .af-name-gender > text:first-of-type {
   font-weight: bold;
   width: 150rpx;
+}
+.af-name-gender > div {
+  position: absolute;
+  right: 0;
 }
 .af-contact {
   display: flex;

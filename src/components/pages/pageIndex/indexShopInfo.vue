@@ -5,7 +5,7 @@
       <div class="index-shop-name">
         <div class="index-shop-name-top">
           <text>苏园黄河路店</text>
-          <text class="index-shop-change-shop">切换</text>
+          <text @click="chooseShop" class="index-shop-change-shop">切换</text>
         </div>
         <text class="index-shop-title-dist">距您2.2km</text>
       </div>
@@ -47,6 +47,11 @@ export default {
     ...mapGetters("storePages/storePageIndex", {
       shopInfo: "getShopInfo"
     })
+  },
+  methods: {
+    chooseShop() {
+      this.$emit("chooseShop");
+    }
   }
 };
 </script>

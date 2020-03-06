@@ -85,24 +85,23 @@ let storeSysInfo = {
   },
   actions: {
     async fetchStatusBarHeightAndCapsuleButtonInfo({ commit }) {
-      let sysInfo = native.fetchSystemInfo(async sysInfo => {
-        let capsuleButtonInfo = await native.fetchCapsuleButtonInfo();
-        utils.log(
-          "actions fetchStatusBarHeightAndCapsuleButtonInfo in storeSysInfo, value: ",
-          sysInfo,
-          capsuleButtonInfo
-        );
-        commit("setStatusBarHeightAndCapsuleButtonInfo", {
-          screenWidth: sysInfo.screenWidth,
-          statusBarHeight: sysInfo.statusBarHeight,
-          capsuleButtonInfo: {
-            top: capsuleButtonInfo.top,
-            height: capsuleButtonInfo.height,
-            width: capsuleButtonInfo.width,
-            right: capsuleButtonInfo.right,
-            left: capsuleButtonInfo.left
-          }
-        });
+      let sysInfo = await native.fetchSystemInfo();
+      let capsuleButtonInfo = native.fetchCapsuleButtonInfo();
+      utils.log(
+        "actions fetchStatusBarHeightAndCapsuleButtonInfo in storeSysInfo, value: ",
+        sysInfo,
+        capsuleButtonInfo
+      );
+      commit("setStatusBarHeightAndCapsuleButtonInfo", {
+        screenWidth: sysInfo.screenWidth,
+        statusBarHeight: sysInfo.statusBarHeight,
+        capsuleButtonInfo: {
+          top: capsuleButtonInfo.top,
+          height: capsuleButtonInfo.height,
+          width: capsuleButtonInfo.width,
+          right: capsuleButtonInfo.right,
+          left: capsuleButtonInfo.left
+        }
       });
     },
     actInitSysInfo({ dispatch, commit }) {

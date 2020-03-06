@@ -22,7 +22,7 @@
 
 <script>
 import qicon from "@/components/icon/qicon";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import addressItem from "@/components/pages/pageAddress/addressItem";
 import nativeMgr from "@/native/NativeMgr";
 let native = nativeMgr.getNative();
@@ -37,10 +37,14 @@ export default {
     addressItem,
     qicon
   },
+  onShow() {
+    this.actGetAddresses();
+  },
   methods: {
     handlerAdd() {
       this.setType(1); //新增状态
       this.setFormData({});
+      this.resetGenders();
       native.nav2("/pages/addressEdit/main");
     },
     handlerEdit(id) {
@@ -51,8 +55,10 @@ export default {
     ...mapMutations("storePages/storePageAddressEdit", [
       "setType",
       "setFormData",
-      "setFormDateFromAddress"
-    ])
+      "setFormDateFromAddress",
+      "resetGenders"
+    ]),
+    ...mapActions("storeGlobal", ["actGetAddresses"])
   }
 };
 </script>

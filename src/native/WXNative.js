@@ -7,7 +7,8 @@ export default class WXNative {
       };
     }
     let p = new Promise((resovle, reject) => {
-      mpvue.request({
+      utils.log("http wx request params: ", obj);
+      wx.request({
         url: obj.url,
         data: obj.data,
         header: obj.header,
@@ -15,27 +16,34 @@ export default class WXNative {
         dataType: obj.dataType,
         responseType: obj.responseType,
         success(res) {
+          utils.log("http wx response success res: ", res);
           resovle(res);
         },
-        fail() {
+        fail(res) {
+          utils.log("http wx response fail res: ", res);
           reject(res);
         }
       });
     });
     return p;
   }
-  async fetchSystemInfo(callback) {
-    wx.getSystemInfo({
-      success: sysInfo => {
-        utils.log("WXNative fetchSystemInfo, sysInfo: ", sysInfo);
-        callback(sysInfo);
-      }
+  showLoading() {
+    wx.showLoading({
+      title: "加载中"
     });
   }
-  async fetchCapsuleButtonInfo() {
-    let capsuleButtonInfo = await mpvue.getMenuButtonBoundingClientRect();
-    utils.log("WXNative fetchCapsuleButtonInfo, value: ", capsuleButtonInfo);
-    return capsuleButtonInfo;
+  hideLoading() {
+    wx.hideLoading();
+  }
+  fetchSystemInfo(callback) {
+    return new Promise((resolve, reject) => {
+      wx.getSystemInfo({
+        success: sysInfo => resolve(sysInfo)
+      });
+    });
+  }
+  fetchCapsuleButtonInfo() {
+    return wx.getMenuButtonBoundingClientRect();
   }
   setNavigationBarTitle(title) {
     mpvue.setNavigationBarTitle({
@@ -54,6 +62,13 @@ export default class WXNative {
     wx.showToast({
       title: obj.msg,
       icon: "none"
+    });
+  }
+  chooseLocation(callback) {
+    wx.chooseLocation({
+      success(res) {
+        callback(res);
+      }
     });
   }
 }

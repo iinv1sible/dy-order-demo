@@ -1,9 +1,12 @@
 import utils from "@/utils/utils";
 import paths from "@/static/paths";
 import config from "@/static/config";
+import nativeMgr from "@/native/NativeMgr";
+let native = nativeMgr.getNative();
 let storeGlobal = {
   namespaced: true,
   state: {
+    baseUrl: "http://127.0.0.1:3000",
     cartItemList: [],
     shopDetail: {
       iconPath: "/static/icon/store.png",
@@ -143,26 +146,71 @@ let storeGlobal = {
       }
     ],
     addresses: {
-      1: {
-        id: 1,
-        address: "秀东尚座",
-        door: "B栋1920",
-        receiver: {
-          name: "陈颖颖",
-          gender: config.GENDER_TYPE.FEMALE,
-          contact: "13282250353"
-        }
-      },
-      2: {
-        id: 2,
-        address: "哈哈哈广场",
-        door: "B栋1920",
-        receiver: {
-          name: "王先生",
-          gender: config.GENDER_TYPE.MALE,
-          contact: "13111111111"
-        }
-      }
+      // 1: {
+      //   id: 1,
+      //   address: "秀东尚座",
+      //   door: "B栋1920",
+      //   receiver: {
+      //     name: "陈颖颖",
+      //     gender: config.GENDER_TYPE.FEMALE,
+      //     contact: "13282250353"
+      //   }
+      // },
+      // 2: {
+      //   id: 2,
+      //   address: "哈哈哈广场",
+      //   door: "B栋1920",
+      //   receiver: {
+      //     name: "王先生",
+      //     gender: config.GENDER_TYPE.MALE,
+      //     contact: "13111111111"
+      //   }
+      // }
+    }
+  },
+  actions: {
+    async actGetAddresses({ commit, getters }) {
+      let fromDto = dto => {
+        let res = {};
+        dto.forEach(item => {
+          res[item.id] = item;
+        });
+        return res;
+      };
+
+      //获取服务器数据转换后刷新本地数据
+      utils.log("actions actGetAddresses in storeGlobal");
+      native.showLoading();
+      let res = await native.request(`${getters.baseUrl}/addresses`);
+      native.hideLoading();
+      utils.log("res: ", res);
+      res = fromDto(res.data);
+      commit("setAddresses", res);
+    },
+    async actAddAddress({ commit, getters }, obj) {
+      utils.log("actions actAddAddress in storeGlobal obj", obj);
+      let data = obj.data;
+      native.showLoading();
+      let res = await native.request({
+        url: `${getters.baseUrl}/addresses`,
+        method: "POST",
+        data
+      });
+      native.hideLoading();
+      obj.success && obj.success();
+    },
+    async actEditAddress({ commit, getters }, obj) {
+      utils.log("actions actEditAddress in storeGlobal obj", obj);
+      native.showLoading();
+      let data = obj.data;
+      console.log(data);
+      let res = await native.request({
+        url: `${getters.baseUrl}/addresses/${data.id}`,
+        method: "PUT",
+        data
+      });
+      native.hideLoading();
+      obj.success && obj.success();
     }
   },
   mutations: {
@@ -172,9 +220,19 @@ let storeGlobal = {
         cartItemList
       );
       state.cartItemList = cartItemList;
+    },
+    setAddresses(state, addresses) {
+      utils.log(
+        "mutations setAddresses in storeGlobal, addresses: ",
+        addresses
+      );
+      state.addresses = addresses;
     }
   },
   getters: {
+    baseUrl(state) {
+      return state.baseUrl;
+    },
     //根据购物车信息将价钱计算完毕 当订单已经下单之后则由服务器返回价格信息 客户端不再计算
     getCartCost(state, getters) {
       utils.log("getters getCartCost in storeGlobal, cartItemList ");
