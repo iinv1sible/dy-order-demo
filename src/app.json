@@ -1,4 +1,9 @@
 {
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
   "pages": [
     "pages/index/main",
     "pages/orders/main",
@@ -9,7 +14,9 @@
     "pages/orderConfirm/main",
     "pages/address/main",
     "pages/addressEdit/main",
-    "pages/shopList/main"
+    "pages/shopList/main",
+    "pages/profileDetail/main",
+    "pages/orderNote/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

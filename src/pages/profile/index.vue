@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="pp-profile">
+    <div @click="handler2ProfileDetail" class="pp-profile">
       <user-profile-button></user-profile-button>
       <div class="pp-misc-round"></div>
     </div>
@@ -36,6 +36,9 @@ export default {
   methods: {
     handlerClickAdress() {
       native.nav2("/pages/address/main");
+    },
+    handler2ProfileDetail() {
+      native.nav2("/pages/profileDetail/main");
     }
   }
 };

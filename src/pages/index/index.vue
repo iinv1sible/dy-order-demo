@@ -32,9 +32,39 @@ import roundedButtonBar from "@/components/roundedButtonBar";
 import nativeMgr from "@/native/NativeMgr";
 import indexShopInfo from "@/components/pages/pageIndex/indexShopInfo";
 let native = nativeMgr.getNative();
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
+  // lifes
+  onShow() {
+    native.setNavigationBarTitle(this.navigationBarTitle);
+    this.actGetLocation({
+      complete: () => {
+        //尝试获取位置之后 不管怎么样都会刷新一下店铺信息 因为肯定需要一个店铺 不可能什么都不显示
+        this.actGetShop();
+      },
+      fail: async () => {
+        //但是位置获取失败之后会锁住视图 给予提示 并且引导设置或者手动选择
+        let res = await native.showModal({
+          title: "提示",
+          content: "没有获取到你的位置",
+          confirmText: "去设置",
+          cancelText: "手动选择"
+        });
+        if (res.confirm) {
+          //去设置
+          let res = await native.openSetting();
+        } else {
+          //手动选择
+          native.nav2("/pages/address/main");
+        }
+      }
+    });
+  },
+  mounted() {
+    this.setLoaded(true);
+  },
+  ////////////////////////
   data() {
     return {};
   },
@@ -49,7 +79,9 @@ export default {
       console.log("handlerChooseShop");
       native.nav2("/pages/shopList/main");
     },
-    ...mapMutations("storePages/storePageIndex", ["setLoaded"])
+    ...mapMutations("storePages/storePageIndex", ["setLoaded"]),
+    ...mapMutations("storeGlobal", ["setCurrentShop2Main"]),
+    ...mapActions("storeGlobal", ["actGetLocation", "actGetShop"])
   },
   components: {
     mapIconButton,
@@ -68,12 +100,6 @@ export default {
       roundedButtonBarData: "getRoundedButtonBarData",
       loaded: "getLoaded"
     })
-  },
-  onShow() {
-    native.setNavigationBarTitle(this.navigationBarTitle);
-  },
-  mounted() {
-    this.setLoaded(true);
   }
 };
 </script>

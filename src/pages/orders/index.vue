@@ -38,7 +38,7 @@
           @again="handlerAgain(order.id)"
           :id="order.id"
           :status="order.status"
-          :shopName="order.shopDetail.name"
+          :shopName="order.shopDetail.title"
           :foodDetailDesc="order.foodDetailDesc"
           :foodNumDesc="order.foodNumDesc"
           :time="order.time"

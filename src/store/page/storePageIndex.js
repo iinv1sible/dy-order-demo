@@ -28,17 +28,6 @@ let storePageIndex = {
           fontSize: "28rpx"
         }
       ]
-    },
-    shopInfo: {
-      logo: "aaa",
-      title: "苏园黄河路店",
-      dist: "距您2.2km",
-      address: "金水区黄河路与南阳路交汇处西北角",
-      busitime: "11:00-14:00，17:00-21:00",
-      expressInfo: "起送价￥ 50.00 · 配送费  ¥ 4.00起 ",
-      bonus: "优惠信息xxxxxxxxxxxxxxx",
-      park: "餐厅楼下停车库，大量车位...",
-      ticketSupport: "支持"
     }
   },
   mutations: {
@@ -79,13 +68,6 @@ let storePageIndex = {
         state.roundedButtonBarData
       );
       return state.roundedButtonBarData;
-    },
-    getShopInfo(state) {
-      utils.log(
-        "getters getShopInfo in storePageIndex, value: ",
-        state.shopInfo
-      );
-      return state.shopInfo;
     }
   }
 };

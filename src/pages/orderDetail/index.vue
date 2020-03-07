@@ -8,7 +8,7 @@
     </div>
     <div class="pod-order-item-info">
       <order-item-info
-        :shopName="order.shopDetail.name"
+        :shopName="order.shopDetail.title"
         :itemList="order.itemList"
         :packCostDesc="order.packCostDesc"
         :expressCostDesc="order.expressCostDesc"

@@ -1,6 +1,6 @@
 <template>
   <div class="oeif-container">
-    <div class="oeif-note">
+    <div @click="onNoteClick" class="oeif-note">
       <text>订单备注</text>
       <div>
         <text>口味、几份餐具、偏好</text>
@@ -22,6 +22,11 @@ import qicon from "@/components/icon/qicon";
 export default {
   components: {
     qicon
+  },
+  methods: {
+    onNoteClick() {
+      this.$emit("noteClick");
+    }
   }
 };
 </script>

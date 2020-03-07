@@ -4,7 +4,7 @@
       <qicon size="90rpx" path="/static/icon/store.png"></qicon>
       <div class="index-shop-name">
         <div class="index-shop-name-top">
-          <text>苏园黄河路店</text>
+          <text>{{shopInfo.title}}</text>
           <text @click="chooseShop" class="index-shop-change-shop">切换</text>
         </div>
         <text class="index-shop-title-dist">距您2.2km</text>
@@ -19,16 +19,16 @@
         <qinput label="营业时间" :content="shopInfo.busitime"></qinput>
       </div>
       <div>
-        <qinput label="外送信息" :content="shopInfo.expressInfo"></qinput>
+        <qinput label="外送信息" :content="shopInfo.expressDesc"></qinput>
       </div>
       <div>
-        <qinput label="优惠活动" :content="shopInfo.bonus"></qinput>
+        <qinput label="优惠活动" :content="shopInfo.bonusDesc"></qinput>
       </div>
       <div>
-        <qinput label="停车信息" :content="shopInfo.park" :clickable="true"></qinput>
+        <qinput label="停车信息" :content="shopInfo.parkDesc" :clickable="true"></qinput>
       </div>
       <div>
-        <qinput label="支持开票" :content="shopInfo.ticketSupport"></qinput>
+        <qinput label="支持开票" :content="shopInfo.ticketSupportDesc"></qinput>
       </div>
     </div>
   </div>
@@ -44,8 +44,8 @@ export default {
     qicon
   },
   computed: {
-    ...mapGetters("storePages/storePageIndex", {
-      shopInfo: "getShopInfo"
+    ...mapGetters("storeGlobal", {
+      shopInfo: "getShopDetail"
     })
   },
   methods: {

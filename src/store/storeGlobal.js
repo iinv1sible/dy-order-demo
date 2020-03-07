@@ -2,18 +2,16 @@ import utils from "@/utils/utils";
 import paths from "@/static/paths";
 import config from "@/static/config";
 import nativeMgr from "@/native/NativeMgr";
+import dtu from "@/utils/dataTransferUtils";
 let native = nativeMgr.getNative();
 let storeGlobal = {
   namespaced: true,
   state: {
     baseUrl: "http://127.0.0.1:3000",
     cartItemList: [],
-    shopDetail: {
-      iconPath: "/static/icon/store.png",
-      name: "苏园黄河路店",
-      busitime: "外送时间：10:30-19:30  ",
-      cost: "起送价：￥ 50.00 丨 配送费  ¥ 4.00"
-    },
+    currentShopId: -1, //当前选择店铺
+    currentLocation: null, //定位信息
+    currentShop: {},
     allItems: {
       1: {
         id: "1",
@@ -169,6 +167,101 @@ let storeGlobal = {
     }
   },
   actions: {
+    async actGetShop({ commit, getters }) {
+      utils.log("actions actGetShop in storeGlobal");
+      let currentShopId = getters.getCurrentShopId;
+      let currentLocation = getters.getCurrentLocation;
+      if (!currentLocation) {
+        //当前用户定位没有获取到 则获取到总店信息 并且锁住操作
+        let shopMain = {
+          id: 2,
+          logo: "/static/icon/store.png",
+          title: "这是总店",
+          dist: 3.3,
+          //distDesc: "距您2.2km",
+          expressMinCost: 50,
+          expressCost: 4,
+          address: "金水区黄河路与南阳路交汇处西北角",
+          busitime: "11:00-14:00，17:00-21:00",
+          //expressDesc: "起送价￥ 50.00 · 配送费  ¥ 4.00起 ",
+          bonusDesc: "优惠信息xxxxxxxxxxxxxxx",
+          parkDesc: "餐厅楼下停车库，大量车位...",
+          ticketSuppert: true,
+          //ticketSupportDesc: "支持",
+          isMain: false,
+          isInExpressRange: false, //是否超出配送范围
+          isInBusi: false //是否正在营业中
+        };
+        commit("setCurrentShop", shopMain);
+      } else if (currentShopId != -1) {
+        //如果设置了店铺id则根据店铺id获取店铺信息
+        let shopById = {
+          id: 1,
+          logo: "/static/icon/store.png",
+          title: "根据店铺id获取的店铺",
+          dist: 2.2,
+          //distDesc: "距您2.2km",
+          expressMinCost: 50,
+          expressCost: 4,
+          address: "金水区黄河路与南阳路交汇处西北角",
+          busitime: "11:00-14:00，17:00-21:00",
+          //expressDesc: "起送价￥ 50.00 · 配送费  ¥ 4.00起 ",
+          bonusDesc: "优惠信息xxxxxxxxxxxxxxx",
+          parkDesc: "餐厅楼下停车库，大量车位...",
+          ticketSuppert: true,
+          //ticketSupportDesc: "支持",
+          isMain: false,
+          isInExpressRange: false, //是否超出配送范围
+          isInBusi: false //是否正在营业中
+        };
+        commit("setCurrentShop", shopById);
+      } else {
+        ////若没有设置则根据定位获取最近的店铺信息
+        let shopByLoc = {
+          id: 3,
+          logo: "/static/icon/store.png",
+          title: "根据定位信息获取的店铺",
+          dist: 3.3,
+          //distDesc: "距您2.2km",
+          expressMinCost: 50,
+          expressCost: 4,
+          address: "金水区黄河路与南阳路交汇处西北角",
+          busitime: "11:00-14:00，17:00-21:00",
+          //expressDesc: "起送价￥ 50.00 · 配送费  ¥ 4.00起 ",
+          bonusDesc: "优惠信息xxxxxxxxxxxxxxx",
+          parkDesc: "餐厅楼下停车库，大量车位...",
+          ticketSuppert: true,
+          //ticketSupportDesc: "支持",
+          isMain: false,
+          isInExpressRange: false, //是否超出配送范围
+          isInBusi: false //是否正在营业中
+        };
+        commit("setCurrentShop", shopByLoc);
+      }
+    },
+    async actGetLocation({ commit }, obj) {
+      utils.log("actions actGetLocation in storeGlobal");
+      try {
+        native.showLoading();
+        //查询是否授权对应scope
+        //若没有授权则调用授权函数主动拉起授权
+        if (!(await native.checkAuthorized("scope.userLocation"))) {
+          await native.authorize("scope.userLocation"); //授权失败是直接reject 那么就是直接进入catch 则提示失败 也不需要去获取位置了
+        }
+        //走到这里必然授权成功 则去获取位置
+        let res = await native.getLocation();
+        commit("setCurrentLocation", res);
+        //保存用户的地址 todo
+        obj.success && obj.success(res);
+      } catch (ex) {
+        //如果失败则将当前位置置为空
+        commit("setCurrentLocation", null);
+        obj.fail && obj.fail();
+      } finally {
+        native.hideLoading();
+        obj.complete && obj.complete();
+      }
+    },
     async actGetAddresses({ commit, getters }) {
       let fromDto = dto => {
         let res = {};
@@ -214,6 +307,21 @@ let storeGlobal = {
     }
   },
   mutations: {
+    setCurrentShopId(state, id) {
+      utils.log("mutations setCurrentShopId in storeGlobal, id: ", id);
+      state.currentShopId = id;
+    },
+    setCurrentLocation(state, location) {
+      utils.log(
+        "mutations setCurrentLocation in storeGlobal, location: ",
+        location
+      );
+      state.currentLocation = location;
+    },
+    setCurrentShop(state, shop) {
+      utils.log("mutations setCurrentShop in storeGlobal, shop: ", shop);
+      state.currentShop = shop;
+    },
     setCartItemList(state, cartItemList) {
       utils.log(
         "mutations setCartItemList in storeGlobal, cartItemList: ",
@@ -230,6 +338,12 @@ let storeGlobal = {
     }
   },
   getters: {
+    getCurrentShopId(state) {
+      return state.currentShopId;
+    },
+    getCurrentLocation(state) {
+      return state.currentLocation;
+    },
     baseUrl(state) {
       return state.baseUrl;
     },
@@ -287,10 +401,14 @@ let storeGlobal = {
       utils.log("getters getCartItemListWithCost in storeGlobal, res ", res);
       return res;
     },
-    getShopDetail(state) {
-      let res = state.shopDetail;
-      utils.log("getters getShopDetail in storeGlobal, value: ", res);
-      return res;
+    getShopDetail(state, getters) {
+      let shopDetail = state.currentShop;
+      dtu.setShopDetailInfo(shopDetail);
+      utils.log(
+        "getters getShopDetail in storeGlobal, shopDetail: ",
+        shopDetail
+      );
+      return shopDetail;
     },
     getAllItems(state) {
       let res = state.allItems;

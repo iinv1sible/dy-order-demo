@@ -34,7 +34,7 @@
     </div>
     <div class="poc-order-item-info">
       <order-item-info
-        :shopName="shopDetail.name"
+        :shopName="shopDetail.title"
         :itemList="cartItemListWithCost.cartItemList"
         :packCostDesc="cartItemListWithCost.cartCost.packCostDesc"
         :expressCostDesc="cartItemListWithCost.cartCost.expressCostDesc"
@@ -43,7 +43,7 @@
       ></order-item-info>
     </div>
     <div class="poc-order-extra-info-form">
-      <order-extra-info-form></order-extra-info-form>
+      <order-extra-info-form @noteClick="handlerNoteClick"></order-extra-info-form>
     </div>
     <div class="poc-pay-bar">
       <pay-bar></pay-bar>
@@ -59,6 +59,8 @@ import orderExtraInfoForm from "@/components/pages/pageOrderDetail/orderExtraInf
 import simpleButton from "@/components/button/simpleButton";
 import payBar from "@/components/pages/pageOrderConfirm/payBar";
 import { mapGetters, mapMutations } from "vuex";
+import nativeMgr from "@/native/NativeMgr";
+let native = nativeMgr.getNative();
 export default {
   components: {
     expressForm,
@@ -78,6 +80,9 @@ export default {
     })
   },
   methods: {
+    handlerNoteClick() {
+      native.nav2("/pages/orderNote/main");
+    },
     handlerSelectMethod(method) {
       this.setMethod(method);
     },

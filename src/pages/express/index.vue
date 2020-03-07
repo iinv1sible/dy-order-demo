@@ -5,10 +5,10 @@
     </div>
     <div>
       <shop-detail
-        :iconPath="shopDetail.iconPath"
-        :name="shopDetail.name"
+        :iconPath="shopDetail.logo"
+        :name="shopDetail.title"
         :busitime="shopDetail.busitime"
-        :cost="shopDetail.cost"
+        :cost="shopDetail.expressDesc"
       ></shop-detail>
     </div>
     <div class="pe-food-detail">
@@ -65,6 +65,9 @@ import { mapGetters, mapMutations, mapActions } from "vuex";
 import nativeMgr from "@/native/NativeMgr";
 let native = nativeMgr.getNative();
 export default {
+  // lifes
+
+  //////////////////////
   components: {
     navbarSearch,
     shopDetail,
