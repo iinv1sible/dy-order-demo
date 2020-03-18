@@ -5,7 +5,7 @@
     </div>
     <div class="upb-detail">
       <text class="upb-name">昵称</text>
-      <text class="upb-phone">132****0353</text>
+      <!-- <text class="upb-phone">132****0353</text> -->
     </div>
     <qicon size="32rpx" path="/static/icon/arrow-right.png"></qicon>
   </div>

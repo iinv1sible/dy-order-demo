@@ -23,7 +23,8 @@
     "pages/shopList/main",
     "pages/profileDetail/main",
     "pages/orderNote/main",
-    "pages/vr/main"
+    "pages/vr/main",
+    "pages/anxin/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

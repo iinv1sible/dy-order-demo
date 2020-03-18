@@ -32,6 +32,12 @@
         <div>没有更多了</div>
       </div>
     </div>
+    <cover-view v-if="showAnxinPopup" class="pi-anxin-popup">
+      <anxin-popup @close="handlerClose"></anxin-popup>
+    </cover-view>
+    <div @click="handlerScroll2Top" v-if="showScroll2TopButton" class="pi-scroll-2-top">
+      <qicon size="60rpx" path="/static/icon/scroll-2-top.png"></qicon>
+    </div>
   </div>
 </template>
 
@@ -46,8 +52,14 @@ import { mapGetters, mapMutations, mapActions } from "vuex";
 import activity from "@/components/pages/pageIndex/activity";
 let native = nativeMgr.getNative();
 let wxPano = requirePlugin("wxPano");
+import anxinPopup from "@/components/popup/anxinPopup";
+import qicon from "@/components/icon/qicon";
 
 export default {
+  onPageScroll(e) {
+    this.pageScrollTop = e.scrollTop;
+    this.showScroll2TopButton = this.pageScrollTop > 266;
+  },
   // lifes
   onShow() {
     native.setNavigationBarTitle(this.navigationBarTitle);
@@ -77,16 +89,27 @@ export default {
   },
   mounted() {
     this.setLoaded(true);
+    console.log("index mounted");
   },
   ////////////////////////
   data() {
-    return {};
+    return {
+      showAnxinPopup: true,
+      pageScrollTop: 0,
+      showScroll2TopButton: false
+    };
   },
   methods: {
     // handlerHeader() {
     //   console.log("click handlerHeader");
     //   native.nav2("/pages/vr/main");
     // },
+    handlerScroll2Top() {
+      native.pageScrollTo(0);
+    },
+    handlerClose() {
+      this.showAnxinPopup = false;
+    },
     onClick(id) {
       console.log(id);
       if (id === 2) {
@@ -103,12 +126,14 @@ export default {
     ...mapActions("storeGlobal", ["actGetLocation", "actGetShop"])
   },
   components: {
+    anxinPopup,
     mapIconButton,
     bottomRoundedSwiper,
     roundedButtonBar,
     indexShopInfo,
     vr,
-    activity
+    activity,
+    qicon
   },
   computed: {
     ...mapGetters("storeSysStyles", {
@@ -169,5 +194,21 @@ page {
   display: flex;
   justify-content: center;
   padding: 30rpx 0;
+}
+.pi-anxin-popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.64);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pi-scroll-2-top {
+  position: fixed;
+  right: 48rpx;
+  bottom: 54rpx;
 }
 </style>

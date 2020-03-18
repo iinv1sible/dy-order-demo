@@ -9,7 +9,9 @@
         </div>
         <text class="index-shop-title-dist">距您2.2km</text>
       </div>
-      <qicon size="36rpx" path="/static/icon/phone.png"></qicon>
+      <div @click="handlerPhoneCall">
+        <qicon size="42rpx" path="/static/icon/phone.png"></qicon>
+      </div>
     </div>
     <div class="index-shop-detail">
       <div class="index-shop-official">
@@ -70,11 +72,15 @@ export default {
     })
   },
   methods: {
+    handlerPhoneCall() {
+      native.makePhoneCall("0574-88132215");
+    },
     chooseShop() {
       this.$emit("chooseShop");
     },
     openLocation() {
       native.openLocation({
+        name: "鄞州科技信息孵化园",
         longitude: 121.55644978545894,
         latitude: 29.807972399025818
       });

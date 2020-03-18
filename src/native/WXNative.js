@@ -139,6 +139,27 @@ export default class WXNative {
     });
     return p;
   }
+  getUserInfo() {
+    return new Promise((resolve, reject) => {
+      wx.getUserInfo({
+        success: res => {
+          // var userInfo = res.userInfo;
+          // var nickName = userInfo.nickName;
+          // var avatarUrl = userInfo.avatarUrl;
+          // var gender = userInfo.gender; //性别 0：未知、1：男、2：女
+          // var province = userInfo.province;
+          // var city = userInfo.city;
+          // var country = userInfo.country;
+          utils.log("http wx getUserInfo success res: ", res);
+          resolve(res);
+        },
+        fail: res => {
+          utils.log("http wx getUserInfo fail res: ", res);
+          reject(res);
+        }
+      });
+    });
+  }
   showLoading() {
     wx.showLoading({
       title: "加载中"
@@ -162,6 +183,38 @@ export default class WXNative {
       title
     });
   }
+  pageScrollTo(scrollTop, duration, selector) {
+    return new Promise((resolve, reject) => {
+      wx.pageScrollTo({
+        scrollTop,
+        duration,
+        selector,
+        success: res => {
+          utils.log("http wx pageScrollTo success res: ", res);
+          resolve(res);
+        },
+        fail: res => {
+          utils.log("http wx pageScrollTo fail res: ", res);
+          reject(res);
+        }
+      });
+    });
+  }
+  makePhoneCall(phoneNumber) {
+    return new Promise((resolve, reject) => {
+      wx.makePhoneCall({
+        phoneNumber,
+        success: res => {
+          utils.log("http wx makePhoneCall success res: ", res);
+          resolve(res);
+        },
+        fail: res => {
+          utils.log("http wx makePhoneCall fail res: ", res);
+          reject(res);
+        }
+      });
+    });
+  }
   nav2(url) {
     wx.navigateTo({
       url
@@ -181,6 +234,37 @@ export default class WXNative {
       success(res) {
         callback(res);
       }
+    });
+  }
+  saveFile(tempFilePath) {
+    return new Promise((resolve, reject) => {
+      wx.saveFile({
+        tempFilePath,
+        success: res => {
+          utils.log("wx saveFile success: ", res);
+          resolve(res);
+        },
+        fail: res => {
+          utils.log("wx saveFile fail: ", res);
+          reject(res);
+        }
+      });
+    });
+  }
+  previewImage(urls, current) {
+    return new Promise((resolve, reject) => {
+      wx.previewImage({
+        urls,
+        current,
+        success: res => {
+          utils.log("wx previewImage success: ", res);
+          resolve(res);
+        },
+        fail: res => {
+          utils.log("wx previewImage fail: ", res);
+          reject(res);
+        }
+      });
     });
   }
   openLocation(obj) {

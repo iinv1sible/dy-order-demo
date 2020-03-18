@@ -3,11 +3,13 @@ import paths from "@/static/paths";
 import config from "@/static/config";
 import nativeMgr from "@/native/NativeMgr";
 import dtu from "@/utils/dataTransferUtils";
+import auth from "@/utils/auth";
 import WXNative from "../native/WXNative";
 let native = nativeMgr.getNative();
 let storeGlobal = {
   namespaced: true,
   state: {
+    userProfile: {},
     activities: [
       {
         id: 3,
@@ -188,6 +190,15 @@ let storeGlobal = {
     }
   },
   actions: {
+    async actGetUserInfo() {
+      let res = await auth.tryAuthorize(
+        "scope.userInfo",
+        "检测到未能获取到您的用户信息，是否前往设置"
+      );
+      if (!res) return;
+      res = await native.getUserInfo();
+      console.log(res);
+    },
     async actGetShop({ commit, getters }) {
       utils.log("actions actGetShop in storeGlobal");
       let currentShopId = getters.getCurrentShopId;

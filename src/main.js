@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import storeConf from "@/store/store";
 import config from "@/static/config";
 import "mpvue-weui/src/style/weui.css";
+import anxinPopup from "@/components/popup/anxinPopup";
 
 Vue.use(Vuex);
 let store = new Vuex.Store(storeConf);
@@ -13,6 +14,7 @@ Vue.prototype.$store.commit(
   "storeSysStyles/setCurrentSysStyle",
   config.sysStyles.yellow
 );
+Vue.prototype.$anxinPopup = anxinPopup;
 
 Vue.config.productionTip = false;
 App.mpType = "app";

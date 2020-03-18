@@ -2,19 +2,19 @@
   <div>
     <div @click="handler2ProfileDetail" class="pp-profile">
       <user-profile-button></user-profile-button>
-      <div class="pp-misc-round"></div>
+      <!-- <div class="pp-misc-round"></div> -->
     </div>
-    <div class="pp-vip-card">
+    <!-- <div class="pp-vip-card">
       <vip-card></vip-card>
-    </div>
+    </div>-->
     <div class="pp-button-list">
       <div @click="handlerClickAdress">
         <arrow-icon-button iconPath="/static/icon/car.png" text="收餐地址"></arrow-icon-button>
       </div>
-      <div>
+      <!-- <div>
         <arrow-icon-button iconPath="/static/icon/question.png" text="意见反馈"></arrow-icon-button>
-      </div>
-      <div>
+      </div>-->
+      <div @click="handlerPhoneCall">
         <arrow-icon-button iconPath="/static/icon/contact.png" text="联系我们"></arrow-icon-button>
       </div>
     </div>
@@ -27,19 +27,27 @@ import arrowIconButton from "@/components/pages/pageProfile/arrowIconButton";
 import userProfileButton from "@/components/button/userProfileButton";
 import nativeMgr from "@/native/NativeMgr";
 let native = nativeMgr.getNative();
+import { mapActions } from "vuex";
 export default {
+  onReady() {
+    this.actGetUserInfo();
+  },
   components: {
     arrowIconButton,
     vipCard,
     userProfileButton
   },
   methods: {
+    handlerPhoneCall() {
+      native.makePhoneCall("0574-88132215");
+    },
     handlerClickAdress() {
       native.nav2("/pages/address/main");
     },
     handler2ProfileDetail() {
       native.nav2("/pages/profileDetail/main");
-    }
+    },
+    ...mapActions("storeGlobal", ["actGetUserInfo"])
   }
 };
 </script>
@@ -52,7 +60,7 @@ page {
 
 <style scoped>
 .pp-button-list {
-  margin-top: 418rpx;
+  /* margin-top: 80rpx; */
 }
 .pp-button-list > div {
   margin-top: 16rpx;
