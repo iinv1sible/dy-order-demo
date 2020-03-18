@@ -1,22 +1,27 @@
 <template>
   <div
     class="rbb-container"
-    :style="{padding:padding?padding:'0 0',width:width?width:'400rpx',height:height?height:'100rpx',borderRadius:borderRadius?borderRadius:'50rpx',backgroundColor:backgroundColor?backgroundColor:'#fff'}"
+    :style="{padding:padding?padding:'0 0',width:width?width:'400rpx',height:height?height:'auto',borderRadius:borderRadius?borderRadius:'50rpx',backgroundColor:backgroundColor?backgroundColor:'#fff'}"
   >
     <div v-for="(item, index) in list" :key="index">
-      <icon-button
-        :iconPath="item.iconPath"
-        :label="item.label"
-        :iconSize="item.iconSize?item.iconSize:null"
-        :fontSize="item.fontSize?item.fontSize:null"
-        @click="onClick(item.id)"
-      ></icon-button>
+      <div @click="onClick(item.id)">
+        <circle-icon-button-top-down
+          :iconText="item.iconText"
+          :iconTextSize="item.iconTextSize"
+          :iconTextColor="item.iconTextColor"
+          :iconSize="item.iconSize"
+          :iconColor="item.iconColor"
+          :text="item.text"
+          :textSize="item.textSize"
+          :textColor="item.textColor"
+        ></circle-icon-button-top-down>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import iconButton from "@/components/button/iconButton";
+import circleIconButtonTopDown from "@/components/button/circleIconButtonTopDown";
 export default {
   props: [
     "width",
@@ -27,7 +32,7 @@ export default {
     "list"
   ],
   components: {
-    iconButton
+    circleIconButtonTopDown
   },
   methods: {
     onClick(id) {

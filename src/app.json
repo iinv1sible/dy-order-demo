@@ -1,4 +1,10 @@
 {
+  "plugins": {
+    "wxPano": {
+      "version": "2.0.4",
+      "provider": "wx386c038238531f87"
+    }
+  },
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
@@ -16,7 +22,8 @@
     "pages/addressEdit/main",
     "pages/shopList/main",
     "pages/profileDetail/main",
-    "pages/orderNote/main"
+    "pages/orderNote/main",
+    "pages/vr/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -25,6 +32,8 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
+    "selectedColor": "#D7BA79",
+    "color": "#BEBEBE",
     "list": [
       {
         "pagePath": "pages/index/main",
@@ -43,12 +52,6 @@
         "text": "我的",
         "iconPath": "static/tabs/profile.png",
         "selectedIconPath": "static/tabs/profile-active.png"
-      },
-      {
-        "pagePath": "pages/test/main",
-        "text": "测试功能",
-        "iconPath": "static/tabs/test.png",
-        "selectedIconPath": "static/tabs/test-active.png"
       }
     ]
   }

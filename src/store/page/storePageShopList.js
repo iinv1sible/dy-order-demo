@@ -47,7 +47,7 @@ let storePageShopList = {
         dtu.setShopDetailInfo({
           id: 2,
           logo: "/static/icon/store.png",
-          title: "这是总店",
+          title: "天港禧悦鄞州店",
           dist: 3.3,
           //distDesc: "距您2.2km",
           expressMinCost: 50,
@@ -68,7 +68,7 @@ let storePageShopList = {
         dtu.setShopDetailInfo({
           id: 1,
           logo: "/static/icon/store.png",
-          title: "根据店铺id获取的店铺",
+          title: "天港禧悦鄞州店",
           dist: 2.2,
           //distDesc: "距您2.2km",
           expressMinCost: 50,
@@ -89,7 +89,7 @@ let storePageShopList = {
         dtu.setShopDetailInfo({
           id: 3,
           logo: "/static/icon/store.png",
-          title: "根据定位信息获取的店铺",
+          title: "天港禧悦鄞州店",
           dist: 3.3,
           //distDesc: "距您2.2km",
           expressMinCost: 50,

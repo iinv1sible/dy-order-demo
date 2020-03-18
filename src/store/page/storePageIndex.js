@@ -10,22 +10,68 @@ let storePageIndex = {
       "/static/images/img03.png"
     ],
     headerLocationText: "浙江省宁波市鄞州区鄞州科技孵化园...",
-    navigationBarTitle: "苏园",
+    navigationBarTitle: "天港禧悦",
+    officialFoodImgConfig: {
+      list: [
+        {
+          src: "/static/icon/food3.png",
+          text: "门面"
+        },
+        {
+          src: "/static/icon/food1.png",
+          text: "麻婆豆腐"
+        },
+        {
+          src: "/static/icon/food2.png",
+          text: "甜品"
+        }
+      ]
+    },
     roundedButtonBarData: {
       list: [
         {
           id: 1,
-          iconPath: `${paths.iconPath}/reserve.png`,
-          label: "包厢预定",
-          iconSize: "48rpx",
-          fontSize: "28rpx"
+          iconText: "包厢",
+          iconTextSize: "24rpx",
+          iconTextColor: "#fff",
+          iconSize: "74rpx",
+          iconColor: "#F84819",
+          text: "包厢预订",
+          textSize: "24rpx",
+          textColor: "#101010"
+        },
+        {
+          id: 3,
+          iconText: "宴会",
+          iconTextSize: "24rpx",
+          iconTextColor: "#fff",
+          iconSize: "74rpx",
+          iconColor: "#2AA4F4",
+          text: "宴会预订",
+          textSize: "24rpx",
+          textColor: "#101010"
         },
         {
           id: 2,
-          iconPath: `${paths.iconPath}/express.png`,
-          label: "订餐外送",
-          iconSize: "48rpx",
-          fontSize: "28rpx"
+          iconText: "外送",
+          iconTextSize: "24rpx",
+          iconTextColor: "#fff",
+          iconSize: "74rpx",
+          iconColor: "#F99104",
+          text: "订餐外送",
+          textSize: "24rpx",
+          textColor: "#101010"
+        },
+        {
+          id: 4,
+          iconText: "宴席",
+          iconTextSize: "24rpx",
+          iconTextColor: "#fff",
+          iconSize: "74rpx",
+          iconColor: "#F488C0",
+          text: "宴席到家",
+          textSize: "24rpx",
+          textColor: "#101010"
         }
       ]
     }
@@ -37,6 +83,13 @@ let storePageIndex = {
     }
   },
   getters: {
+    getOfficialFoodImgConfig(state) {
+      utils.log(
+        "getters officialFoodImgConfig in storePageIndex, value: ",
+        state.officialFoodImgConfig
+      );
+      return state.officialFoodImgConfig;
+    },
     getLoaded(state) {
       utils.log("getters getLoaded in storePageIndex, value: ", state.loaded);
       return state.loaded;

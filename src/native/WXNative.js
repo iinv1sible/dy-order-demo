@@ -100,6 +100,7 @@ export default class WXNative {
         content: obj.content || "",
         cancelText: obj.cancelText || "",
         confirmText: obj.confirmText || "",
+        showCancel: obj.showCancel,
         success(res) {
           utils.log("用户点击模态框 res", res);
           resolve(res);
@@ -181,6 +182,9 @@ export default class WXNative {
         callback(res);
       }
     });
+  }
+  openLocation(obj) {
+    wx.openLocation(obj);
   }
   getLocation() {
     return new Promise((resolve, reject) => {

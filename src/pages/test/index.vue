@@ -1,28 +1,43 @@
 <template>
   <div>
-    <button @click="chooseLocation">选择位置</button>
+    <movable-area style="height: 100px; width: 100px; background: red;">
+      <movable-view
+        style="height: 200px; width: 200px; background: blue;"
+        direction="vertical"
+        :out-of-bounds="true"
+        :damping="10"
+        @vtouchmove="handlerTouchMove"
+      ></movable-view>
+    </movable-area>
+    <div class="followDiv" :style="{top:pageY}"></div>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import imgButtonWithBottomBar from "@/components/button/imgButtonWithBottomBar";
 export default {
+  data() {
+    return {
+      pageY: 0
+    };
+  },
+  components: {
+    imgButtonWithBottomBar
+  },
   methods: {
-    chooseLocation() {
-      wx.chooseLocation({
-        success(res) {
-          console.log(res);
-          // that.setData({
-          //   hasLocation: true,
-          //   location: formatLocation(res.longitude, res.latitude),
-          //   locationAddress: res.address
-          // });
-        }
-      });
+    handlerTouchMove(e) {
+      this.pageY = e.pageY;
+      console.log(this.pageY);
     }
   }
 };
 </script>
 
 <style scoped>
+.followDiv {
+  width: 50rpx;
+  height: 50rpx;
+  background-color: #000;
+  position: fixed;
+}
 </style>

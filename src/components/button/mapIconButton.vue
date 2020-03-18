@@ -1,8 +1,8 @@
 <template>
   <div class="mib-container">
-    <qicon size="32rpx" path="/static/icon/map-white.png"></qicon>
+    <qicon size="21px" path="/static/icon/map-black.png"></qicon>
     <text class="mib-text">{{text}}</text>
-    <qicon size="32rpx" path="/static/icon/arrow-right-white.png"></qicon>
+    <!-- <qicon size="16px" path="/static/icon/arrow-right.png"></qicon> -->
   </div>
 </template>
 
@@ -21,12 +21,13 @@ export default {
   display: flex;
   width: 580rpx;
   align-items: center;
-  color: #fff;
+  color: #000;
+  height: 30px;
 }
 
 .mib-text {
   flex: auto;
-  font-size: 28rpx;
-  margin-left: 20rpx;
+  font-size: 14px;
+  margin-left: 5px;
 }
 </style>

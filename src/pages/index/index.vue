@@ -1,25 +1,35 @@
 <template>
-  <div v-if="loaded">
+  <div v-show="loaded">
+    <div>
+      <vr></vr>
+    </div>
     <div class="index-header">
-      <div class="index-header-swiper">
-        <bottomRoundedSwiper :imgList="swiperImgList"></bottomRoundedSwiper>
-      </div>
-      <div class="index-header-button">
-        <map-icon-button :text="headerLocationText"></map-icon-button>
-      </div>
+      <map-icon-button :text="headerLocationText"></map-icon-button>
+      <!-- <bottomRoundedSwiper :imgList="swiperImgList"></bottomRoundedSwiper> -->
     </div>
     <div class="index-shop-container">
       <div class="index-shop-header">
         <rounded-button-bar
           width="706rpx"
-          height="114rpx"
           borderRadius="40rpx"
+          padding="26rpx 0"
           :list="roundedButtonBarData.list"
           @click="onClick"
         ></rounded-button-bar>
       </div>
       <div class="index-shop-info">
         <index-shop-info @chooseShop="handlerChooseShop"></index-shop-info>
+      </div>
+      <div class="index-shop-activity">
+        <div class="index-shop-activity-title">- 精彩活动 -</div>
+        <div class="index-shop-activity-container">
+          <div v-for="activity in activities" :key="id">
+            <activity :path="activity.path" :title="activity.title" :valid="activity.valid"></activity>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-load-more">
+        <div>没有更多了</div>
       </div>
     </div>
   </div>
@@ -31,16 +41,20 @@ import bottomRoundedSwiper from "@/components/bottomRoundedSwiper";
 import roundedButtonBar from "@/components/roundedButtonBar";
 import nativeMgr from "@/native/NativeMgr";
 import indexShopInfo from "@/components/pages/pageIndex/indexShopInfo";
-let native = nativeMgr.getNative();
+import vr from "@/components/pages/pageIndex/vr";
 import { mapGetters, mapMutations, mapActions } from "vuex";
+import activity from "@/components/pages/pageIndex/activity";
+let native = nativeMgr.getNative();
+let wxPano = requirePlugin("wxPano");
 
 export default {
   // lifes
   onShow() {
     native.setNavigationBarTitle(this.navigationBarTitle);
+    //尝试获取位置之后 不管怎么样都会刷新一下店铺信息 因为肯定需要一个店铺 不可能什么都不显示
+    this.actGetShop();
     this.actGetLocation({
       complete: () => {
-        //尝试获取位置之后 不管怎么样都会刷新一下店铺信息 因为肯定需要一个店铺 不可能什么都不显示
         this.actGetShop();
       },
       fail: async () => {
@@ -49,7 +63,7 @@ export default {
           title: "提示",
           content: "没有获取到你的位置",
           confirmText: "去设置",
-          cancelText: "手动选择"
+          showCancel: false
         });
         if (res.confirm) {
           //去设置
@@ -69,7 +83,12 @@ export default {
     return {};
   },
   methods: {
+    // handlerHeader() {
+    //   console.log("click handlerHeader");
+    //   native.nav2("/pages/vr/main");
+    // },
     onClick(id) {
+      console.log(id);
       if (id === 2) {
         //跳转到订餐外送页面
         native.nav2("/pages/express/main");
@@ -87,7 +106,9 @@ export default {
     mapIconButton,
     bottomRoundedSwiper,
     roundedButtonBar,
-    indexShopInfo
+    indexShopInfo,
+    vr,
+    activity
   },
   computed: {
     ...mapGetters("storeSysStyles", {
@@ -99,6 +120,9 @@ export default {
       navigationBarTitle: "getNavigationBarTitle",
       roundedButtonBarData: "getRoundedButtonBarData",
       loaded: "getLoaded"
+    }),
+    ...mapGetters("storeGlobal", {
+      activities: "getActivities"
     })
   }
 };
@@ -112,22 +136,38 @@ page {
 
 <style scoped>
 .index-header {
-  position: relative;
-}
-.index-header-button {
-  position: absolute;
-  top: 12rpx;
-  left: 12rpx;
+  background-color: #fff;
 }
 .index-shop-header {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  top: -140rpx;
-  left: 22rpx;
+  margin: 24rpx 0 24rpx 22rpx;
 }
 .index-shop-container {
   position: relative;
-  margin-top: 100rpx;
+}
+.index-shop-activity-title {
+  color: #101010;
+  font-size: 32rpx;
+  font-weight: bold;
+  padding: 24rpx 0;
+}
+.index-shop-activity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.index-shop-activity-container > div {
+  margin-top: 32rpx;
+}
+.index-shop-activity-container > div:first-of-type {
+  margin-top: 0;
+}
+.bottom-load-more {
+  color: #e1e1e1;
+  font-size: 28rpx;
+  width: 140rpx;
+  width: 750rpx;
+  display: flex;
+  justify-content: center;
+  padding: 30rpx 0;
 }
 </style>

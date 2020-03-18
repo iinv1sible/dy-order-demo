@@ -3,10 +3,31 @@ import paths from "@/static/paths";
 import config from "@/static/config";
 import nativeMgr from "@/native/NativeMgr";
 import dtu from "@/utils/dataTransferUtils";
+import WXNative from "../native/WXNative";
 let native = nativeMgr.getNative();
 let storeGlobal = {
   namespaced: true,
   state: {
+    activities: [
+      {
+        id: 3,
+        path: "/static/icon/activity1.png",
+        title: "是心动啊！3.18倒计时，4大爆款，14家酒店团宠你！",
+        valid: "有效期 2020.1.15-2020.1.20"
+      },
+      {
+        id: 2,
+        path: "/static/icon/activity2.png",
+        title: "致亲爱的你丨天港悦小厨全城寻找5名老铁，请你吃一个月的霸王餐",
+        valid: "有效期 2020.1.15-2020.1.20"
+      },
+      {
+        id: 1,
+        path: "/static/icon/activity3.png",
+        title: "好吃不贵丨天港禧悦“团餐”配送啦，复工从分食用餐开始",
+        valid: "有效期 2020.1.15-2020.1.20"
+      }
+    ],
     baseUrl: "http://127.0.0.1:3000",
     cartItemList: [],
     currentShopId: -1, //当前选择店铺
@@ -176,7 +197,7 @@ let storeGlobal = {
         let shopMain = {
           id: 2,
           logo: "/static/icon/store.png",
-          title: "这是总店",
+          title: "天港禧悦鄞州店",
           dist: 3.3,
           //distDesc: "距您2.2km",
           expressMinCost: 50,
@@ -198,7 +219,7 @@ let storeGlobal = {
         let shopById = {
           id: 1,
           logo: "/static/icon/store.png",
-          title: "根据店铺id获取的店铺",
+          title: "天港禧悦鄞州店",
           dist: 2.2,
           //distDesc: "距您2.2km",
           expressMinCost: 50,
@@ -220,7 +241,7 @@ let storeGlobal = {
         let shopByLoc = {
           id: 3,
           logo: "/static/icon/store.png",
-          title: "根据定位信息获取的店铺",
+          title: "天港禧悦鄞州店",
           dist: 3.3,
           //distDesc: "距您2.2km",
           expressMinCost: 50,
@@ -247,6 +268,8 @@ let storeGlobal = {
         //若没有授权则调用授权函数主动拉起授权
         if (!(await native.checkAuthorized("scope.userLocation"))) {
           await native.authorize("scope.userLocation"); //授权失败是直接reject 那么就是直接进入catch 则提示失败 也不需要去获取位置了
+          //第一次拉起授权并且成功 则跳转到店铺选择页面进行选择
+          native.nav2("/pages/shopList/main");
         }
         //走到这里必然授权成功 则去获取位置
         let res = await native.getLocation();
@@ -338,6 +361,11 @@ let storeGlobal = {
     }
   },
   getters: {
+    getActivities(state) {
+      let res = state.activities;
+      utils.log("getters getActivities in storeGlobal, activities " + res);
+      return res;
+    },
     getCurrentShopId(state) {
       return state.currentShopId;
     },

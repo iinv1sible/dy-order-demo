@@ -1,7 +1,7 @@
 <template>
   <div class="index-shop-container">
     <div class="index-shop-title">
-      <qicon size="90rpx" path="/static/icon/store.png"></qicon>
+      <qicon size="90rpx" path="/static/icon/logo.png"></qicon>
       <div class="index-shop-name">
         <div class="index-shop-name-top">
           <text>{{shopInfo.title}}</text>
@@ -12,7 +12,21 @@
       <qicon size="36rpx" path="/static/icon/phone.png"></qicon>
     </div>
     <div class="index-shop-detail">
-      <div>
+      <div class="index-shop-official">
+        <div class="index-shop-official-imgs-header" style="font-size:26rpx">
+          <div style="color:#101010;font-weight:bold">官方图片</div>
+          <div class="index-shop-official-imgs-header-arrow">
+            <div style="color:#828282">23张</div>
+            <qicon size="24rpx" path="/static/icon/arrow-right.png"></qicon>
+          </div>
+        </div>
+        <div class="index-shop-official-imgs">
+          <div v-for="item in officialFoodImgConfig.list" :key="text">
+            <img-button-with-bottom-bar :src="item.src" :text="item.text"></img-button-with-bottom-bar>
+          </div>
+        </div>
+      </div>
+      <div @click="openLocation">
         <qinput label="门店地址" :content="shopInfo.address" :clickable="true"></qinput>
       </div>
       <div>
@@ -24,7 +38,7 @@
       <div>
         <qinput label="优惠活动" :content="shopInfo.bonusDesc"></qinput>
       </div>
-      <div>
+      <div @click="openLocation">
         <qinput label="停车信息" :content="shopInfo.parkDesc" :clickable="true"></qinput>
       </div>
       <div>
@@ -37,20 +51,33 @@
 <script>
 import qinput from "@/components/qinput";
 import qicon from "@/components/icon/qicon";
+import imgButtonWithBottomBar from "@/components/button/imgButtonWithBottomBar";
 import { mapGetters } from "vuex";
+import nativeMgr from "@/native/NativeMgr";
+let native = nativeMgr.getNative();
 export default {
   components: {
     qinput,
-    qicon
+    qicon,
+    imgButtonWithBottomBar
   },
   computed: {
     ...mapGetters("storeGlobal", {
       shopInfo: "getShopDetail"
+    }),
+    ...mapGetters("storePages/storePageIndex", {
+      officialFoodImgConfig: "getOfficialFoodImgConfig"
     })
   },
   methods: {
     chooseShop() {
       this.$emit("chooseShop");
+    },
+    openLocation() {
+      native.openLocation({
+        longitude: 121.55644978545894,
+        latitude: 29.807972399025818
+      });
     }
   }
 };
@@ -111,5 +138,31 @@ export default {
   box-sizing: border-box;
   padding: 30rpx 0;
   border-bottom: 1px solid rgba(249, 249, 249, 1);
+}
+.index-shop-official-imgs {
+  display: flex;
+  align-items: center;
+}
+.index-shop-official-imgs > div {
+  margin-right: 20rpx;
+}
+.index-shop-official-imgs > div:last-of-type {
+  margin-right: 0;
+}
+.index-shop-official-imgs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 99%;
+  padding-bottom: 24rpx;
+}
+.index-shop-official-imgs-header-arrow {
+  display: flex;
+  align-items: center;
+}
+.index-shop-official {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
