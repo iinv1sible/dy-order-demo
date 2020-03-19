@@ -1,6 +1,7 @@
 <template>
   <cover-view class="ap-container">
     <cover-view class="ap-top">
+      <cover-image class="ap-top-bg" src="/static/icon/anxinbg.png"></cover-image>
       <cover-view class="ap-title">
         <cover-view>安心卡</cover-view>
       </cover-view>
@@ -45,12 +46,20 @@ export default {
   align-items: center;
 }
 .ap-top {
-  width: 472rpx;
+  width: 500rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 20rpx;
   background-color: #fff;
+  position: relative;
+}
+.ap-top-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 .ap-title {
   color: #333333;
@@ -97,12 +106,12 @@ export default {
   margin-bottom: 30rpx;
 }
 .ap-close {
-  width: 50rpx;
-  height: 50rpx;
-  bottom: -50rpx;
+  width: 60rpx;
+  height: 60rpx;
+  bottom: -60rpx;
 }
 .ap-bottom {
-  height: 100rpx;
+  height: 150rpx;
   width: 100%;
   display: flex;
   background-color: rgba(0, 0, 0, 0);

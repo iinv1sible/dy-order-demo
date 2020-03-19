@@ -46,7 +46,7 @@ let storePageIndex = {
           iconTextSize: "24rpx",
           iconTextColor: "#fff",
           iconSize: "74rpx",
-          iconColor: "#2AA4F4",
+          iconColor: "#BEBEBE",
           text: "宴会预订",
           textSize: "24rpx",
           textColor: "#101010"
@@ -57,10 +57,11 @@ let storePageIndex = {
           iconTextSize: "24rpx",
           iconTextColor: "#fff",
           iconSize: "74rpx",
-          iconColor: "#F99104",
+          iconColor: "#BEBEBE",
           text: "订餐外送",
           textSize: "24rpx",
-          textColor: "#101010"
+          textColor: "#101010",
+          url: "/pages/express/main"
         },
         {
           id: 4,
@@ -68,7 +69,7 @@ let storePageIndex = {
           iconTextSize: "24rpx",
           iconTextColor: "#fff",
           iconSize: "74rpx",
-          iconColor: "#F488C0",
+          iconColor: "#BEBEBE",
           text: "宴席到家",
           textSize: "24rpx",
           textColor: "#101010"

@@ -1,13 +1,15 @@
 <template>
   <div class="upb-container">
     <div class="upb-icon">
-      <image></image>
+      <open-data type="userAvatarUrl"></open-data>
+      <!-- <image></image> -->
     </div>
     <div class="upb-detail">
-      <text class="upb-name">昵称</text>
+      <open-data class="upb-name" type="userNickName"></open-data>
+      <!-- <text class="upb-name">昵称</text> -->
       <!-- <text class="upb-phone">132****0353</text> -->
     </div>
-    <qicon size="32rpx" path="/static/icon/arrow-right.png"></qicon>
+    <!-- <qicon size="32rpx" path="/static/icon/arrow-right.png"></qicon> -->
   </div>
 </template>
 

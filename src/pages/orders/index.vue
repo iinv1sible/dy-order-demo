@@ -8,7 +8,7 @@
         :tabList="navbarTabConfig.tabList"
         :selectedId="navbarTabConfig.selectedId"
         fontSize="16px"
-        iconSize="40px"
+        iconSize="30px"
         lineSpace="6px"
         @select="handlerSelect"
       ></navbar-tab>

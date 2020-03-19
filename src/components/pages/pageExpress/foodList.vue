@@ -66,8 +66,8 @@ export default {
 <style scoped>
 .fl-container {
   width: 750rpx;
-  height: 1000rpx;
   display: flex;
+  height: 100%;
 }
 .fl-category {
   width: 180rpx;
@@ -80,6 +80,7 @@ export default {
   margin-left: 1px;
   flex: auto;
   height: 100%;
+  position: relative;
 }
 .fl-food-list-title {
   width: 100%;
@@ -92,9 +93,16 @@ export default {
   background-color: #fff;
 }
 .fl-food-list-list {
-  height: 100%;
+  position: absolute;
+  top: 90rpx;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 .fl-food-item {
   margin-bottom: 1px;
+}
+.fl-food-item:last-of-type {
+  margin-bottom: 200rpx;
 }
 </style>

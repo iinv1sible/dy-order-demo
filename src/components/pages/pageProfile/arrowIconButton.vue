@@ -2,6 +2,7 @@
   <div class="aibea-container">
     <arrow-icon-button
       :iconPath="iconPath"
+      :showArrow="showArrow"
       iconSize="44rpx"
       :text="text"
       fontSize="28rpx"
@@ -18,7 +19,7 @@
 <script>
 import arrowIconButton from "@/components/button/arrowIconButton";
 export default {
-  props: ["text", "iconPath"],
+  props: ["text", "iconPath", "showArrow"],
   components: {
     arrowIconButton
   }

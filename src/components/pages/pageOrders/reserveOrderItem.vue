@@ -29,22 +29,22 @@
     <div class="oi-bottom">
       <div v-if="status===1">
         <text>请在{{reserveGoldDeadline}}内完成支付</text>
-        <simpleButton text="立即支付"></simpleButton>
+        <simpleButton color="#fff" backgroundColor="#bebebe" text="立即支付"></simpleButton>
       </div>
       <div v-if="status===2">
         <div style="margin-right:14rpx">
-          <simpleButton plain text="一键导航"></simpleButton>
+          <simpleButton color="#fff" backgroundColor="#bebebe" text="一键导航"></simpleButton>
         </div>
         <div>
-          <simpleButton plain text="取消预订"></simpleButton>
+          <simpleButton color="#fff" backgroundColor="#bebebe" text="取消预订"></simpleButton>
         </div>
       </div>
       <div v-if="status===3">
         <div style="margin-right:14rpx">
-          <simpleButton plain text="投诉反馈"></simpleButton>
+          <simpleButton color="#fff" backgroundColor="#bebebe" text="投诉反馈"></simpleButton>
         </div>
         <div>
-          <simpleButton plain text="再次预定"></simpleButton>
+          <simpleButton color="#fff" backgroundColor="#bebebe" text="再次预定"></simpleButton>
         </div>
       </div>
     </div>

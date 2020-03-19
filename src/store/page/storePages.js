@@ -5,6 +5,8 @@ import storePageOrderDetail from "./storePageOrderDetail";
 import storePageOrderConfirm from "./storePageOrderConfirm";
 import storePageAddressEdit from "./storePageAddressEdit";
 import storePageShopList from "./storePageShopList";
+import storePageWebView from "./storePageWebView";
+import storePageBanquet from "./storePageBanquet";
 let storePages = {
   namespaced: true,
   modules: {
@@ -14,7 +16,9 @@ let storePages = {
     storePageOrderDetail,
     storePageOrderConfirm,
     storePageAddressEdit,
-    storePageShopList
+    storePageShopList,
+    storePageWebView,
+    storePageBanquet
   }
 };
 export default storePages;

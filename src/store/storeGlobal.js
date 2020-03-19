@@ -9,7 +9,9 @@ let native = nativeMgr.getNative();
 let storeGlobal = {
   namespaced: true,
   state: {
-    userProfile: {},
+    userProfile: {
+      phoneNumber: ""
+    },
     activities: [
       {
         id: 3,
@@ -191,12 +193,13 @@ let storeGlobal = {
   },
   actions: {
     async actGetUserInfo() {
-      let res = await auth.tryAuthorize(
-        "scope.userInfo",
-        "检测到未能获取到您的用户信息，是否前往设置"
-      );
-      if (!res) return;
-      res = await native.getUserInfo();
+      // res = await native.getUserInfo();
+      // let res = await auth.tryAuthorize(
+      //   "scope.userInfo",
+      //   "检测到未能获取到您的用户信息，是否前往设置"
+      // );
+      // if (!res) return;
+
       console.log(res);
     },
     async actGetShop({ commit, getters }) {
@@ -341,6 +344,13 @@ let storeGlobal = {
     }
   },
   mutations: {
+    setPhoneNumber(state, phoneNumber) {
+      utils.log(
+        "mutations setPhoneNumber in storeGlobal, phoneNumber: ",
+        phoneNumber
+      );
+      state.userProfile.phoneNumber = phoneNumber;
+    },
     setCurrentShopId(state, id) {
       utils.log("mutations setCurrentShopId in storeGlobal, id: ", id);
       state.currentShopId = id;
@@ -372,6 +382,11 @@ let storeGlobal = {
     }
   },
   getters: {
+    getPhoneNumber(state) {
+      let res = state.userProfile.phoneNumber;
+      utils.log("getters getPhoneNumber in storeGlobal, res " + res);
+      return res;
+    },
     getActivities(state) {
       let res = state.activities;
       utils.log("getters getActivities in storeGlobal, activities " + res);

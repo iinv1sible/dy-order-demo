@@ -23,6 +23,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 640rpx;
+  position: relative;
 }
 .a-title {
   color: #101010;

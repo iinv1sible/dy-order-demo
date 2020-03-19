@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width:750rpx;overflow-x:hidden" class="pe-container">
     <div>
       <navbar-search @back="handlerBack" text="输入菜品名称搜索"></navbar-search>
     </div>
@@ -11,7 +11,10 @@
         :cost="shopDetail.expressDesc"
       ></shop-detail>
     </div>
-    <div class="pe-food-detail">
+    <div
+      class="pe-food-detail"
+      :style="{top:(defaultNavbarHeight * 2 + 252) + 'rpx',right:0,bottom:0,left:0}"
+    >
       <food-list
         :categories="categories"
         :foodList="foodListByCurrentSelectedCategory"
@@ -89,6 +92,12 @@ export default {
     }),
     ...mapGetters("storeGlobal", {
       cartCost: "getCartCost"
+    }),
+    ...mapGetters("storeSysInfo", {
+      defaultNavbarHeight: "getDefaultNavbarHeight",
+      defaultNavbarContentHeight: "getDefaultNavbarContentHeight",
+      defaultNavbarStatusHeight: "getDefaultNavbarStatusHeight",
+      capsuleButtonInfo: "getCapsuleButtonInfo"
     })
   },
   methods: {
@@ -158,8 +167,15 @@ page {
 </style>
 
 <style scoped>
+.pe-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
 .pe-food-detail {
-  margin-top: 14rpx;
+  position: fixed;
 }
 .pe-pay-bar {
   position: fixed;

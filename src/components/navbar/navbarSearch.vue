@@ -6,7 +6,7 @@
   >
     <div class="ns-container" :style="{width:navbarMenuButtonLeft+'px'}">
       <div class="ns-back">
-        <qicon @click="back" path="/static/icon/arrow-left.png" size="15px"></qicon>
+        <qicon @click="back" path="/static/icon/arrow-left.png" size="25px"></qicon>
       </div>
 
       <div class="ns-search-parent">
@@ -58,7 +58,7 @@ export default {
   background-color: #f7f7f7;
   flex: auto;
   font-size: 13px;
-  height: 60%;
+  height: 80%;
   margin-left: 10rpx;
   border-radius: 10rpx;
   display: flex;
@@ -69,5 +69,6 @@ export default {
   box-sizing: border-box;
   padding: 0 20rpx;
   flex: auto;
+  height: 100%;
 }
 </style>

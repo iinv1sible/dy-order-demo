@@ -10,10 +10,13 @@
         <text class="index-shop-title-dist">距您2.2km</text>
       </div>
       <div @click="handlerPhoneCall">
-        <qicon size="42rpx" path="/static/icon/phone.png"></qicon>
+        <qicon size="56rpx" path="/static/icon/phone.png"></qicon>
       </div>
     </div>
     <div class="index-shop-detail">
+      <div class="index-shop-official-developing">
+        <developing></developing>
+      </div>
       <div class="index-shop-official">
         <div class="index-shop-official-imgs-header" style="font-size:26rpx">
           <div style="color:#101010;font-weight:bold">官方图片</div>
@@ -51,6 +54,7 @@
 </template>
 
 <script>
+import developing from "@/components/button/developing";
 import qinput from "@/components/qinput";
 import qicon from "@/components/icon/qicon";
 import imgButtonWithBottomBar from "@/components/button/imgButtonWithBottomBar";
@@ -61,7 +65,8 @@ export default {
   components: {
     qinput,
     qicon,
-    imgButtonWithBottomBar
+    imgButtonWithBottomBar,
+    developing
   },
   computed: {
     ...mapGetters("storeGlobal", {
@@ -138,6 +143,11 @@ export default {
   align-items: center;
   flex-direction: column;
   border: 1px solid #f6f6f6;
+  position: relative;
+}
+.index-shop-official-developing {
+  position: absolute;
+  left: 150rpx;
 }
 .index-shop-detail > div {
   width: 620rpx;
@@ -170,5 +180,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  opacity: 0.3;
 }
 </style>

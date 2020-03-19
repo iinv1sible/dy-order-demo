@@ -24,7 +24,9 @@
     "pages/profileDetail/main",
     "pages/orderNote/main",
     "pages/vr/main",
-    "pages/anxin/main"
+    "pages/anxin/main",
+    "pages/webView/main",
+    "pages/banquet/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

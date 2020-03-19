@@ -28,7 +28,7 @@
       <div v-if="status===ORDER_STATUS.WAIT_PAY">
         <text>请在15分钟内完成支付</text>
         <div @click.stop="onPay">
-          <simpleButton plain="plain" text="立即支付"></simpleButton>
+          <simpleButton color="#fff" backgroundColor="#bebebe" text="立即支付"></simpleButton>
         </div>
       </div>
       <div

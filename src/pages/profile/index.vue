@@ -9,13 +9,13 @@
     </div>-->
     <div class="pp-button-list">
       <div @click="handlerClickAdress">
-        <arrow-icon-button iconPath="/static/icon/car.png" text="收餐地址"></arrow-icon-button>
+        <arrow-icon-button :showArrow="false" iconPath="/static/icon/car.png" text="收餐地址"></arrow-icon-button>
       </div>
       <!-- <div>
         <arrow-icon-button iconPath="/static/icon/question.png" text="意见反馈"></arrow-icon-button>
       </div>-->
       <div @click="handlerPhoneCall">
-        <arrow-icon-button iconPath="/static/icon/contact.png" text="联系我们"></arrow-icon-button>
+        <arrow-icon-button :showArrow="true" iconPath="/static/icon/contact.png" text="联系我们"></arrow-icon-button>
       </div>
     </div>
   </div>
@@ -42,6 +42,7 @@ export default {
       native.makePhoneCall("0574-88132215");
     },
     handlerClickAdress() {
+      return;
       native.nav2("/pages/address/main");
     },
     handler2ProfileDetail() {

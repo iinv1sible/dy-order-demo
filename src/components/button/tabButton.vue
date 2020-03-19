@@ -6,13 +6,9 @@
         fontSize: fontSize ? fontSize : '32rpx'
       }"
       class="tb-text"
-      >{{ text }}</text
-    >
+    >{{ text }}</text>
     <div v-show="selected ? selected : false" :style="{ marginTop: lineSpace }">
-      <qicon
-        path="/static/icon/line.png"
-        :size="iconSize ? iconSize : '76rpx'"
-      ></qicon>
+      <qicon path="/static/icon/line.png" :size="iconSize ? iconSize : '60rpx'"></qicon>
     </div>
   </div>
 </template>

@@ -10,14 +10,18 @@ let storePageOrders = {
       tabList: [
         {
           id: 1,
-          text: "预订订单"
+          text: "预订"
+        },
+        {
+          id: 3,
+          text: "宴会"
         },
         {
           id: 2,
-          text: "送餐订单"
+          text: "外送"
         }
       ],
-      selectedId: 2
+      selectedId: 1
     },
     reserveOrderList: [
       {

@@ -1,10 +1,8 @@
 <template>
   <div class="aib-container" :style="{ width: width, height: height }">
     <qicon :size="iconSize" :path="iconPath"></qicon>
-    <text class="aib-text" :style="{ color: fontColor, marginLeft: space }">{{
-      text
-    }}</text>
-    <qicon :size="arrowIconSize" :path="arrowIconPath"></qicon>
+    <text class="aib-text" :style="{ color: fontColor, marginLeft: space }">{{text}}</text>
+    <qicon v-if="showArrow" :size="arrowIconSize" :path="arrowIconPath"></qicon>
   </div>
 </template>
 
@@ -12,6 +10,7 @@
 import qicon from "@/components/icon/qicon";
 export default {
   props: [
+    "showArrow",
     "iconPath",
     "iconSize",
     "text",

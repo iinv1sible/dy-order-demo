@@ -1,5 +1,5 @@
 <template>
-  <div v-show="loaded">
+  <div style="width:750rpx;overflow-x:hidden" v-show="loaded">
     <div>
       <vr></vr>
     </div>
@@ -20,11 +20,16 @@
       <div class="index-shop-info">
         <index-shop-info @chooseShop="handlerChooseShop"></index-shop-info>
       </div>
-      <div class="index-shop-activity">
-        <div class="index-shop-activity-title">- 精彩活动 -</div>
-        <div class="index-shop-activity-container">
-          <div v-for="activity in activities" :key="id">
-            <activity :path="activity.path" :title="activity.title" :valid="activity.valid"></activity>
+      <div style="position:relative">
+        <div class="pi-act-developing">
+          <developing></developing>
+        </div>
+        <div class="index-shop-activity">
+          <div class="index-shop-activity-title">- 精彩活动 -</div>
+          <div class="index-shop-activity-container">
+            <div v-for="activity in activities" :key="id">
+              <activity :path="activity.path" :title="activity.title" :valid="activity.valid"></activity>
+            </div>
           </div>
         </div>
       </div>
@@ -54,6 +59,7 @@ let native = nativeMgr.getNative();
 let wxPano = requirePlugin("wxPano");
 import anxinPopup from "@/components/popup/anxinPopup";
 import qicon from "@/components/icon/qicon";
+import developing from "@/components/button/developing";
 
 export default {
   onPageScroll(e) {
@@ -65,27 +71,8 @@ export default {
     native.setNavigationBarTitle(this.navigationBarTitle);
     //尝试获取位置之后 不管怎么样都会刷新一下店铺信息 因为肯定需要一个店铺 不可能什么都不显示
     this.actGetShop();
-    this.actGetLocation({
-      complete: () => {
-        this.actGetShop();
-      },
-      fail: async () => {
-        //但是位置获取失败之后会锁住视图 给予提示 并且引导设置或者手动选择
-        let res = await native.showModal({
-          title: "提示",
-          content: "没有获取到你的位置",
-          confirmText: "去设置",
-          showCancel: false
-        });
-        if (res.confirm) {
-          //去设置
-          let res = await native.openSetting();
-        } else {
-          //手动选择
-          native.nav2("/pages/address/main");
-        }
-      }
-    });
+    this.tryGetLocation();
+    this.showAnxinPopup = true;
   },
   mounted() {
     this.setLoaded(true);
@@ -104,6 +91,29 @@ export default {
     //   console.log("click handlerHeader");
     //   native.nav2("/pages/vr/main");
     // },
+    tryGetLocation() {
+      this.actGetLocation({
+        complete: () => {
+          this.actGetShop();
+        },
+        fail: async () => {
+          //但是位置获取失败之后会锁住视图 给予提示 并且引导设置或者手动选择
+          let res = await native.showModal({
+            title: "提示",
+            content: "没有获取到你的位置",
+            confirmText: "去设置",
+            showCancel: false
+          });
+          if (res.confirm) {
+            //去设置
+            let res = await native.openSetting();
+          } else {
+            //手动选择
+            native.nav2("/pages/address/main");
+          }
+        }
+      });
+    },
     handlerScroll2Top() {
       native.pageScrollTo(0);
     },
@@ -112,20 +122,31 @@ export default {
     },
     onClick(id) {
       console.log(id);
-      if (id === 2) {
-        //跳转到订餐外送页面
-        native.nav2("/pages/express/main");
+      // if (id === 2) {
+      //   //跳转到订餐外送页面
+      //   native.nav2("/pages/express/main");
+      // }
+      if (id === 1) {
+        this.setUrl(
+          "https://mobile.zhidianfan.com/yiding/html/book.html?type=4"
+        );
+        native.nav2("/pages/webView/main");
       }
+      // if (id === 3) {
+      //   native.nav2("/pages/banquet/main");
+      // }
     },
     handlerChooseShop() {
       console.log("handlerChooseShop");
       native.nav2("/pages/shopList/main");
     },
     ...mapMutations("storePages/storePageIndex", ["setLoaded"]),
+    ...mapMutations("storePages/storePageWebView", ["setUrl"]),
     ...mapMutations("storeGlobal", ["setCurrentShop2Main"]),
     ...mapActions("storeGlobal", ["actGetLocation", "actGetShop"])
   },
   components: {
+    developing,
     anxinPopup,
     mapIconButton,
     bottomRoundedSwiper,
@@ -155,7 +176,7 @@ export default {
 
 <style>
 page {
-  background-color: #f9f9f9;
+  background-color: #f2f2f2;
 }
 </style>
 
@@ -179,6 +200,8 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  opacity: 0.3;
+  position: relative;
 }
 .index-shop-activity-container > div {
   margin-top: 32rpx;
@@ -210,5 +233,10 @@ page {
   position: fixed;
   right: 48rpx;
   bottom: 54rpx;
+}
+.pi-act-developing {
+  position: absolute;
+  right: 200rpx;
+  top: 30rpx;
 }
 </style>

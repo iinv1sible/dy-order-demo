@@ -25,8 +25,10 @@
                 <div @click="showHealthCard(person)" style="margin-left: 10rpx;">查看健康证</div>
               </div>
             </div>
-            <div style="width: 48rpx;margin-left: 34rpx;">{{person.name}}</div>
-            <div style="margin-left: 86rpx;">{{person.tempDesc}}</div>
+            <div
+              style="width: 100rpx;margin-left: 10rpx;display:flex;align-items:center;justify-content:center"
+            >{{person.name}}</div>
+            <div style="margin-left: 56rpx;">{{person.tempDesc}}</div>
           </div>
         </div>
       </div>
@@ -67,7 +69,7 @@ export default {
         {
           id: 1,
           name: "张三",
-          icon: "/static/icon/dy-logo.png",
+          icon: "/static/heads/head-1.png",
           jobDesc: "菜品负责人",
           tempDesc: "<37℃",
           healthCardImg: "/static/icon/dy-logo.png"
@@ -75,7 +77,7 @@ export default {
         {
           id: 2,
           name: "李四",
-          icon: "/static/icon/dy-logo.png",
+          icon: "/static/heads/head-2.png",
           jobDesc: "传菜负责人",
           tempDesc: "<37℃",
           healthCardImg: "/static/icon/dy-logo.png"
@@ -83,7 +85,7 @@ export default {
         {
           id: 3,
           name: "王五",
-          icon: "/static/icon/dy-logo.png",
+          icon: "/static/heads/head-3.png",
           jobDesc: "服务员",
           tempDesc: "<37℃",
           healthCardImg: "/static/icon/dy-logo.png"
@@ -222,7 +224,7 @@ export default {
   top: 0;
   background-color: #fff;
   padding: 20rpx 30rpx;
-  border-radius: 12rpx;
+  border-radius: 0 0 12rpx 12rpx;
   display: flex;
   align-items: center;
   justify-content: center;

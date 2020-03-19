@@ -64,6 +64,7 @@ export default class WXNative {
   }
   authorize(scope) {
     return new Promise((resolve, reject) => {
+      utils.log("authorize", scope);
       wx.authorize({
         scope: scope,
         success(res) {
