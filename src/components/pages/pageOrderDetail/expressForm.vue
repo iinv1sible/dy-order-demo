@@ -1,6 +1,6 @@
 <template>
   <div class="ef-container">
-    <div class="ef-top">
+    <div class="ef-top" @click="handlerSelectAddress">
       <div class="ef-top-address">
         广州市越秀区东风中路268号
         1109-1110
@@ -13,9 +13,9 @@
         <qicon path="/static/icon/arrow-right.png" size="40rpx"></qicon>
       </div>
     </div>
-    <div class="ef-time">
+    <div @click="handlerSelectTime" class="ef-time">
       <div>送达时间</div>
-      <div class="ef-time-detail">尽快送达</div>
+      <div class="ef-time-detail">{{arriveTimeText}}</div>
       <div>
         <qicon path="/static/icon/arrow-right.png" size="40rpx"></qicon>
       </div>
@@ -24,14 +24,24 @@
       <div>支付方式</div>
       <div>线上支付</div>
     </div>
+    <div></div>
   </div>
 </template>
 
 <script>
 import qicon from "@/components/icon/qicon";
 export default {
+  props: ["arriveTimeText"],
   components: {
     qicon
+  },
+  methods: {
+    handlerSelectTime() {
+      this.$emit("selectTime");
+    },
+    handlerSelectAddress() {
+      this.$emit("selectAddress");
+    }
   }
 };
 </script>

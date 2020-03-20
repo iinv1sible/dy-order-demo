@@ -38,6 +38,7 @@ export default {
     qicon
   },
   onShow() {
+    console.log("onShow aaaaaaaaaaaaaaaaaaaaa");
     this.actGetAddresses();
   },
   methods: {

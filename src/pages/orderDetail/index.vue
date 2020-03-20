@@ -14,6 +14,7 @@
         :expressCostDesc="order.expressCostDesc"
         :bonusDesc="order.bonusDesc"
         :totalCostDesc="order.totalCostDesc"
+        :showCancel="true"
       ></order-item-info>
     </div>
     <div v-if="isExpress" class="pod-express-info">
@@ -32,9 +33,10 @@
     <div class="pod-order-extra-info">
       <order-extra-info :note="order.note"></order-extra-info>
     </div>
-    <div class="pod-pay-bar">
-      <pay-bar></pay-bar>
+    <div v-if="isWaitPay" class="pod-pay-bar">
+      <pay-bar :totalCostDesc="order.totalCostDesc"></pay-bar>
     </div>
+    <demo-pay v-if="showDemoPay" @confirm="handlerConfirmDemoPay"></demo-pay>
   </div>
 </template>
 
@@ -47,8 +49,10 @@ import orderExtraInfo from "@/components/pages/pageOrderDetail/orderExtraInfo";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 import qicon from "@/components/icon/qicon";
 import config from "@/static/config";
+import demoPay from "@/components/pages/pageOrderDetail/demoPay";
 export default {
   components: {
+    demoPay,
     orderItemInfo,
     expressInfo,
     orderInfo,
@@ -58,16 +62,17 @@ export default {
   },
   data() {
     return {
+      showDemoPay: false,
       ORDER_STATUS_DESC_MAP: config.ORDER_STATUS_DESC_MAP
     };
   },
   onShow() {
     this.actGetAddresses();
+    setTimeout(() => {
+      this.showDemoPay = true;
+    }, 2000);
   },
   computed: {
-    ...mapGetters("storePages/storePageOrderDetail", {
-      order: "getOrder"
-    }),
     isExpress() {
       return this.order.expressMethod === config.ORDER_EXPRESS_METHOD.EXPRESS;
     },
@@ -76,10 +81,26 @@ export default {
     },
     expressWho() {
       return config.ORDER_EXPRESS_WHO_DESC_MAP[this.order.expressInfo.who];
-    }
+    },
+    isWaitPay() {
+      return this.order.status == config.ORDER_STATUS.WAIT_PAY;
+    },
+    ...mapGetters("storePages/storePageOrderDetail", {
+      order: "getOrder"
+    })
   },
   methods: {
-    ...mapActions("storeGlobal", ["actGetAddresses"])
+    handlerConfirmDemoPay() {
+      this.showDemoPay = false;
+      this.actSetExpressOrderStatus({
+        id: this.order.id,
+        status: config.ORDER_STATUS.WAIT_ACCEPT
+      });
+    },
+    ...mapActions("storeGlobal", [
+      "actGetAddresses",
+      "actSetExpressOrderStatus"
+    ])
   }
 };
 </script>

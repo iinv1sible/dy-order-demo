@@ -1,9 +1,9 @@
 <template>
   <div class="sd-container">
     <div class="sd-name">
-      <qicon size="30rpx" :path="iconPath"></qicon>
+      <qicon size="60rpx" :path="iconPath"></qicon>
       <text>{{name}}</text>
-      <div class="sd-switch">
+      <div class="sd-switch" @click="handlerChooseShop">
         <simple-button
           text="切换"
           color="#101010"
@@ -29,11 +29,19 @@
 <script>
 import qicon from "@/components/icon/qicon";
 import simpleButton from "@/components/button/simpleButton";
+import nativeMgr from "@/native/NativeMgr";
+let native = nativeMgr.getNative();
 export default {
   props: ["iconPath", "name", "busitime", "cost"],
   components: {
     simpleButton,
     qicon
+  },
+  methods: {
+    handlerChooseShop() {
+      console.log("handlerChooseShop");
+      native.nav2("/pages/shopList/main");
+    }
   }
 };
 </script>

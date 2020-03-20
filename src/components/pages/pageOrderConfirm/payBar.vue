@@ -1,18 +1,26 @@
 <template>
   <div class="pb-container">
     <div class="pb-left">
-      <text class="pb-cost">¥42.5</text>
-      <text class="pb-seprator">|</text>
-      <text class="pb-bonus">已优惠¥4.5</text>
+      <text class="pb-cost">{{totalCostDesc}}</text>
+      <!-- <text class="pb-seprator">|</text> -->
+      <!-- <text class="pb-bonus">已优惠¥4.5</!-->
+      -->
     </div>
-    <div class="pb-right">
+    <div @click="handlerConfirm" class="pb-right">
       <text>确认支付</text>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["totalCostDesc"],
+  methods: {
+    handlerConfirm() {
+      this.$emit("confirm");
+    }
+  }
+};
 </script>
 
 <style scoped>

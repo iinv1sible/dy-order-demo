@@ -5,6 +5,7 @@ import nativeMgr from "@/native/NativeMgr";
 import dtu from "@/utils/dataTransferUtils";
 import auth from "@/utils/auth";
 import WXNative from "../native/WXNative";
+import mathUtils from "@/utils/mathUtils";
 let native = nativeMgr.getNative();
 let storeGlobal = {
   namespaced: true,
@@ -40,18 +41,20 @@ let storeGlobal = {
     allItems: {
       1: {
         id: "1",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤鸡",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
+        iconPath:
+          "https://qiniuyun8.zhidianfan.com/2f7f9407184248f6961899c386f30c5f.png?e=3161471776&token=7Qtn8gb2H4Jrup0BKvT781jKUxQDUrib7jqZVV2A:xVnqjCXY9VO7ShMLHZzlXIsCa3Q=",
+        nameText: "案例菜品1",
+        infoText: "仅案例展示菜品，暂不支持配送。",
         costText: "¥ 4.5",
         price: 4.5,
         storage: 2
       },
       2: {
         id: "2",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香茶叶蛋aaaaaaaaaaaaaaaaaaaaaa",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
+        iconPath:
+          "https://qiniuyun8.zhidianfan.com/810db9313124499c86a01bc303be2d13.png?e=3161471857&token=7Qtn8gb2H4Jrup0BKvT781jKUxQDUrib7jqZVV2A:AGOZVp5u0l1Zi3ZKu9fA2Ai4TGE=",
+        nameText: "案例菜品2",
+        infoText: "仅案例展示菜品，暂不支持配送。",
         costText: "¥ 4.5",
         price: 4.5,
         suit: ["1", "3", "4"],
@@ -59,54 +62,60 @@ let storeGlobal = {
       },
       3: {
         id: "3",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤鸭",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
+        iconPath:
+          "https://qiniuyun8.zhidianfan.com/2f7f9407184248f6961899c386f30c5f.png?e=3161471776&token=7Qtn8gb2H4Jrup0BKvT781jKUxQDUrib7jqZVV2A:xVnqjCXY9VO7ShMLHZzlXIsCa3Q=",
+        nameText: "案例菜品3",
+        infoText: "仅案例展示菜品，暂不支持配送。",
         costText: "¥ 4.5",
         price: 4.5,
         storage: 1
       },
       4: {
         id: "4",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤牛肉",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
+        iconPath:
+          "https://qiniuyun8.zhidianfan.com/810db9313124499c86a01bc303be2d13.png?e=3161471857&token=7Qtn8gb2H4Jrup0BKvT781jKUxQDUrib7jqZVV2A:AGOZVp5u0l1Zi3ZKu9fA2Ai4TGE=",
+        nameText: "案例菜品4",
+        infoText: "仅案例展示菜品，暂不支持配送。",
         costText: "¥ 4.5",
         price: 4.5,
         storage: 1
       },
       5: {
         id: "5",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤火腿肠",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
+        iconPath:
+          "https://qiniuyun8.zhidianfan.com/2f7f9407184248f6961899c386f30c5f.png?e=3161471776&token=7Qtn8gb2H4Jrup0BKvT781jKUxQDUrib7jqZVV2A:xVnqjCXY9VO7ShMLHZzlXIsCa3Q=",
+        nameText: "案例菜品5",
+        infoText: "仅案例展示菜品，暂不支持配送。",
         costText: "¥ 4.5",
         price: 4.5,
         storage: 1
       },
       6: {
         id: "6",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤大白菜",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
+        iconPath:
+          "https://qiniuyun8.zhidianfan.com/810db9313124499c86a01bc303be2d13.png?e=3161471857&token=7Qtn8gb2H4Jrup0BKvT781jKUxQDUrib7jqZVV2A:AGOZVp5u0l1Zi3ZKu9fA2Ai4TGE=",
+        nameText: "案例菜品6",
+        infoText: "仅案例展示菜品，暂不支持配送。",
         costText: "¥ 4.5",
         price: 4.5,
         storage: 1
       },
       7: {
         id: "7",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤鱼",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
+        iconPath:
+          "https://qiniuyun8.zhidianfan.com/2f7f9407184248f6961899c386f30c5f.png?e=3161471776&token=7Qtn8gb2H4Jrup0BKvT781jKUxQDUrib7jqZVV2A:xVnqjCXY9VO7ShMLHZzlXIsCa3Q=",
+        nameText: "案例菜品7",
+        infoText: "仅案例展示菜品，暂不支持配送。",
         costText: "¥ 4.5",
         price: 4.5,
         storage: 1
       },
       8: {
         id: "8",
-        iconPath: "/static/icon/food.jpg",
-        nameText: "五香烤猪肉",
-        infoText: "我是优质茶叶浸泡的一颗蛋...",
+        iconPath:
+          "https://qiniuyun8.zhidianfan.com/810db9313124499c86a01bc303be2d13.png?e=3161471857&token=7Qtn8gb2H4Jrup0BKvT781jKUxQDUrib7jqZVV2A:AGOZVp5u0l1Zi3ZKu9fA2Ai4TGE=",
+        nameText: "案例菜品8",
+        infoText: "仅案例展示菜品，暂不支持配送。",
         costText: "¥ 4.5",
         price: 4.5,
         storage: 1
@@ -115,24 +124,24 @@ let storeGlobal = {
     categories: {
       0: {
         id: "0",
-        iconPath: "/static/icon/fire.png",
-        text: "热销",
-        foodList: ["1", "2", "3", "4", "5", "6", "7", "8"]
+        // iconPath: "/static/icon/fire.png",
+        text: "店长推荐",
+        foodList: ["1", "2", "3", "4"]
       },
       1: {
         id: "1",
-        iconPath: "/static/icon/bonus.png",
-        text: "优惠",
-        foodList: ["1", "2", "3", "4", "5"]
+        // iconPath: "/static/icon/bonus.png",
+        text: "主食类",
+        foodList: ["5", "6", "7", "8"]
       },
       2: {
         id: "2",
-        text: "特色菜系",
+        text: "小食类",
         foodList: []
       },
       3: {
         id: "3",
-        text: "全球美食",
+        text: "酒水饮料",
         newAdded: 1,
         foodList: []
       }
@@ -141,6 +150,64 @@ let storeGlobal = {
       {
         id: 1,
         status: config.ORDER_STATUS.WAIT_PAY, //1 待支付 2 待接单 3 已接单 4 已配送 5 已取餐 6 已取消
+        no: "2115909017716318384",
+        payMethod: config.ORDER_PAY_METHOD.ONLINE,
+        createTime: "2019-09-21 12:10",
+        expressMethod: config.ORDER_EXPRESS_METHOD.EXPRESS, // 是配送 还是 自取
+        //配送信息
+        expressInfo: {
+          time: "尽快送达",
+          addressId: 1, //对应用户的地址id
+          who: config.ORDER_EXPRESS_WHO.SELF
+        },
+        packCost: 1,
+        expressCost: 2,
+        bonus: 2,
+        itemList: [
+          {
+            id: 1,
+            count: 2
+          },
+          {
+            id: 2,
+            count: 4
+          }
+        ],
+        note: "这里是备注信息", //订单备注信息
+        totalCost: 10.0
+      },
+      {
+        id: 2,
+        status: config.ORDER_STATUS.ACCEPTED, //1 待支付 2 待接单 3 已接单 4 已配送 5 已取餐 6 已取消
+        no: "2115909017716318384",
+        payMethod: config.ORDER_PAY_METHOD.ONLINE,
+        createTime: "2019-09-21 12:10",
+        expressMethod: config.ORDER_EXPRESS_METHOD.EXPRESS, // 是配送 还是 自取
+        //配送信息
+        expressInfo: {
+          time: "尽快送达",
+          addressId: 1, //对应用户的地址id
+          who: config.ORDER_EXPRESS_WHO.SELF
+        },
+        packCost: 1,
+        expressCost: 2,
+        bonus: 2,
+        itemList: [
+          {
+            id: 1,
+            count: 2
+          },
+          {
+            id: 2,
+            count: 4
+          }
+        ],
+        note: "这里是备注信息", //订单备注信息
+        totalCost: 10.0
+      },
+      {
+        id: 3,
+        status: config.ORDER_STATUS.EXPRESSED, //1 待支付 2 待接单 3 已接单 4 已配送 5 已取餐 6 已取消
         no: "2115909017716318384",
         payMethod: config.ORDER_PAY_METHOD.ONLINE,
         createTime: "2019-09-21 12:10",
@@ -192,6 +259,17 @@ let storeGlobal = {
     }
   },
   actions: {
+    actSetExpressOrderStatus({ commit, getters }, obj) {
+      let expressOrderList = getters.expressOrderList;
+      let { id, status } = obj;
+      let index = expressOrderList.findIndex(order => order.id == id);
+      let order = expressOrderList[index];
+      order.status = status;
+      commit("setExpressOrder", {
+        id,
+        order
+      });
+    },
     async actGetUserInfo() {
       // res = await native.getUserInfo();
       // let res = await auth.tryAuthorize(
@@ -210,14 +288,14 @@ let storeGlobal = {
         //当前用户定位没有获取到 则获取到总店信息 并且锁住操作
         let shopMain = {
           id: 2,
-          logo: "/static/icon/store.png",
-          title: "天港禧悦鄞州店",
+          logo: "/static/icon/logo.png",
+          title: "小程序演示酒店",
           dist: 3.3,
           //distDesc: "距您2.2km",
           expressMinCost: 50,
           expressCost: 4,
           address: "金水区黄河路与南阳路交汇处西北角",
-          busitime: "11:00-14:00，17:00-21:00",
+          busitime: "外送时间 11:00-14:00，17:00-21:00",
           //expressDesc: "起送价￥ 50.00 · 配送费  ¥ 4.00起 ",
           bonusDesc: "优惠信息xxxxxxxxxxxxxxx",
           parkDesc: "餐厅楼下停车库，大量车位...",
@@ -232,14 +310,14 @@ let storeGlobal = {
         //如果设置了店铺id则根据店铺id获取店铺信息
         let shopById = {
           id: 1,
-          logo: "/static/icon/store.png",
-          title: "天港禧悦鄞州店",
+          logo: "/static/icon/logo.png",
+          title: "小程序演示酒店",
           dist: 2.2,
           //distDesc: "距您2.2km",
           expressMinCost: 50,
           expressCost: 4,
           address: "金水区黄河路与南阳路交汇处西北角",
-          busitime: "11:00-14:00，17:00-21:00",
+          busitime: "外送时间 11:00-14:00，17:00-21:00",
           //expressDesc: "起送价￥ 50.00 · 配送费  ¥ 4.00起 ",
           bonusDesc: "优惠信息xxxxxxxxxxxxxxx",
           parkDesc: "餐厅楼下停车库，大量车位...",
@@ -254,14 +332,14 @@ let storeGlobal = {
         ////若没有设置则根据定位获取最近的店铺信息
         let shopByLoc = {
           id: 3,
-          logo: "/static/icon/store.png",
-          title: "天港禧悦鄞州店",
+          logo: "/static/icon/logo.png",
+          title: "小程序演示酒店",
           dist: 3.3,
           //distDesc: "距您2.2km",
           expressMinCost: 50,
           expressCost: 4,
           address: "金水区黄河路与南阳路交汇处西北角",
-          busitime: "11:00-14:00，17:00-21:00",
+          busitime: "外送时间 11:00-14:00，17:00-21:00",
           //expressDesc: "起送价￥ 50.00 · 配送费  ¥ 4.00起 ",
           bonusDesc: "优惠信息xxxxxxxxxxxxxxx",
           parkDesc: "餐厅楼下停车库，大量车位...",
@@ -308,13 +386,65 @@ let storeGlobal = {
         return res;
       };
 
+      let mockData = [
+        {
+          id: 1,
+          address: "万达广场(四明中路店)",
+          door: "B栋19202223333",
+          receiver: {
+            name: "陈颖颖",
+            gender: "2",
+            contact: "13282250353"
+          }
+        },
+        {
+          id: 2,
+          address: "海曙金茂悦",
+          door: "B栋1920",
+          receiver: {
+            name: "王哈哈",
+            gender: "1",
+            contact: "13255555555"
+          }
+        },
+        {
+          id: 3,
+          address: "秀东尚座",
+          door: "B栋1920",
+          receiver: {
+            name: "陈颖颖",
+            gender: "2",
+            contact: "13282250353"
+          }
+        },
+        {
+          address: "宁波市鄞州区人民政府(惠风东路北)",
+          door: "aaa",
+          receiver: {
+            gender: 1,
+            contact: "bbb"
+          },
+          id: 4
+        },
+        {
+          address: "宁波市鄞州区人民政府",
+          door: "dwqdwq",
+          receiver: {
+            name: "dwqdwq",
+            gender: 1,
+            contact: "dwqd"
+          },
+          id: 5
+        }
+      ];
+
+      let res = fromDto(mockData);
       //获取服务器数据转换后刷新本地数据
-      utils.log("actions actGetAddresses in storeGlobal");
-      native.showLoading();
-      let res = await native.request(`${getters.baseUrl}/addresses`);
-      native.hideLoading();
-      utils.log("res: ", res);
-      res = fromDto(res.data);
+      utils.log("actions actGetAddresses in storeGlobal res", res);
+      // native.showLoading();
+      // let res = await native.request(`${getters.baseUrl}/addresses`);
+      // native.hideLoading();
+      // utils.log("res: ", res);
       commit("setAddresses", res);
     },
     async actAddAddress({ commit, getters }, obj) {
@@ -344,6 +474,13 @@ let storeGlobal = {
     }
   },
   mutations: {
+    setExpressOrder(state, obj) {
+      utils.log("mutations setExpressOrderStatus in storeGlobal, obj: ", obj);
+      let { id, order } = obj;
+      let expressOrderList = state.expressOrderList;
+      let index = expressOrderList.findIndex(order => order.id == id);
+      expressOrderList[index] = order;
+    },
     setPhoneNumber(state, phoneNumber) {
       utils.log(
         "mutations setPhoneNumber in storeGlobal, phoneNumber: ",
@@ -408,8 +545,10 @@ let storeGlobal = {
       let allItems = getters.getAllItems;
       let origin = 0;
       cartItemList.forEach(cartItem => {
-        origin += allItems[cartItem.id].price * cartItem.count;
+        let temp = allItems[cartItem.id].price * cartItem.count;
+        origin += temp;
       });
+      origin = mathUtils.keepDecimalPlaces(origin, 1);
       let now = origin;
       let expressCost = 5;
       let packCost = 1;
@@ -440,7 +579,11 @@ let storeGlobal = {
       res.forEach(item => {
         item.detail = allItems[item.id];
         item.countDesc = `x ${item.count}`;
-        item.costDesc = `¥ ${item.count * item.detail.price}`;
+        item.costDesc = `¥ ${mathUtils.keepDecimalPlaces(
+          item.count * item.detail.price,
+          1
+        )}`;
+        console.log("item.costDesc", item.costDesc);
       });
       utils.log("res ", res);
       return res;
@@ -473,11 +616,23 @@ let storeGlobal = {
       utils.log("getters getItemById in storeGlobal, value: ", id);
       return state.allItems[id];
     },
-    getCategories(state) {
+    getCategories(state, getters) {
+      let cartItemList = getters.getCartItemList;
+      let catItemIdList = cartItemList.map(cartItem => cartItem.id);
+      let setCatDetailInfo = cat => {
+        let foodList = cat.foodList;
+        let newAdded = foodList.filter(
+          foodId => catItemIdList.indexOf(foodId) != -1
+        ).length;
+        cat.newAdded = newAdded;
+      };
       utils.log(
         "getters getCategories in storeGlobal, value: ",
-        state.categories
+        state.categories,
+        state.cartItemList
       );
+      Object.values(state.categories).forEach(cat => setCatDetailInfo(cat));
+      //计算出每一个标签有多少物品在购物车内
       return state.categories;
     },
     getExpressOrderById: (state, getters) => id => {

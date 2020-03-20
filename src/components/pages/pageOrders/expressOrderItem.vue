@@ -35,7 +35,7 @@
         v-if="status === ORDER_STATUS.EXPRESSED || status === ORDER_STATUS.FETCHED || status === ORDER_STATUS.CANCELED"
       >
         <div @click.stop="onAgain">
-          <simpleButton plain="plain" text="再来一单"></simpleButton>
+          <simpleButton color="#fff" backgroundColor="#bebebe" text="再来一单"></simpleButton>
         </div>
       </div>
     </div>

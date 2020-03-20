@@ -14,6 +14,7 @@
 
 <script>
 import qicon from "@/components/icon/qicon";
+import mathUtils from "@/utils/mathUtils";
 export default {
   props: ["name", "count", "price", "id"],
   components: {
@@ -21,7 +22,7 @@ export default {
   },
   computed: {
     cost() {
-      return this.count * this.price;
+      return mathUtils.keepDecimalPlaces(this.count * this.price, 1);
     }
   },
   methods: {

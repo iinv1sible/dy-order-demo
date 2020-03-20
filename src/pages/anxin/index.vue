@@ -44,7 +44,7 @@
         <image
           mode="widthFix"
           style="width: 340rpx;height: auto; display: block;"
-          src="/static/images/doctor.png"
+          src="https://qiniuyun8.zhidianfan.com/987c48825cad4f9cbeb5722c0a089041.png?e=3161488530&token=7Qtn8gb2H4Jrup0BKvT781jKUxQDUrib7jqZVV2A:7KMTNmF2X13Jpxf1WNTxYsZnYsc="
         />
       </div>
     </div>

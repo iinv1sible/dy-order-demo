@@ -10,7 +10,7 @@
           :cost="item.costDesc"
         ></order-item>
       </div>
-      <div v-if="packCostDesc">
+      <!-- <div v-if="packCostDesc">
         <order-item-pack :cost="packCostDesc"></order-item-pack>
       </div>
       <div v-if="expressCostDesc">
@@ -18,27 +18,27 @@
       </div>
       <div v-if="bonusDesc">
         <order-item-bonus :bonus="bonusDesc"></order-item-bonus>
-      </div>
+      </div>-->
     </div>
     <div class="oii-bottom">
       <div>
-        <icon-button
-          iconPath="/static/icon/phone02.png"
-          iconSize="32rpx"
-          label="联系商家"
-          fontSize="26rpx"
-          fontColor="#D7BA79"
-          containerWidth="166rpx"
-          containerHeight="36rpx"
-          space="6rpx"
-        ></icon-button>
+        <simple-button
+          text="联系商家"
+          color="#D7BA79"
+          fontSize="24rpx"
+          plain="plain"
+          border="1px solid #D7BA79"
+          width="108rpx"
+          height="44rpx"
+          borderRadius="10rpx"
+        ></simple-button>
       </div>
       <div class="oii-bottom-cost">
         <text>应付</text>
         <text>{{totalCostDesc}}</text>
       </div>
     </div>
-    <div class="oii-cancel-order">
+    <div v-if="showCancel" class="oii-cancel-order">
       <simple-button
         text="取消订单"
         color="#101010"
@@ -67,7 +67,8 @@ export default {
     "packCostDesc",
     "expressCostDesc",
     "bonusDesc",
-    "totalCostDesc"
+    "totalCostDesc",
+    "showCancel"
   ],
   components: {
     orderItem,

@@ -7,6 +7,7 @@ import storePageAddressEdit from "./storePageAddressEdit";
 import storePageShopList from "./storePageShopList";
 import storePageWebView from "./storePageWebView";
 import storePageBanquet from "./storePageBanquet";
+import storePageNote from "./storePageNote";
 let storePages = {
   namespaced: true,
   modules: {
@@ -18,7 +19,8 @@ let storePages = {
     storePageAddressEdit,
     storePageShopList,
     storePageWebView,
-    storePageBanquet
+    storePageBanquet,
+    storePageNote
   }
 };
 export default storePages;

@@ -122,10 +122,10 @@ export default {
     },
     onClick(id) {
       console.log(id);
-      // if (id === 2) {
-      //   //跳转到订餐外送页面
-      //   native.nav2("/pages/express/main");
-      // }
+      if (id === 2) {
+        //跳转到订餐外送页面
+        native.nav2("/pages/express/main");
+      }
       if (id === 1) {
         this.setUrl(
           "https://mobile.zhidianfan.com/yiding/html/book.html?type=4"

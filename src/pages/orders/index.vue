@@ -81,7 +81,7 @@ export default {
     },
     handlerShowDetail(id) {
       console.log("handlerShowDetail");
-      this.actShowExpressOrderDetail(id);
+      // this.actShowExpressOrderDetail(id);
     },
     handlerPay() {
       console.log("handlerPay");

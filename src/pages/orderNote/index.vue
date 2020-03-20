@@ -1,13 +1,13 @@
 <template>
   <div class="pon-container">
     <div class="pon-textarea">
-      <textarea></textarea>
-      <text class="pon-counter">0/50个字</text>
+      <textarea :value="text" @input="setText($event.mp.detail.value)"></textarea>
+      <text class="pon-counter">{{textLength}}/50个字</text>
     </div>
     <div class="pon-tag">
       <div class="pon-tag-title">快捷输入</div>
       <div class="pon-tag-list">
-        <div v-for="tag in tagList" :key="id">
+        <div v-for="tag in tagList" :key="id" @click="handlerSelect(tag.id)">
           <simple-button
             :text="tag.text"
             color="#A6A4A4"
@@ -21,48 +21,51 @@
         </div>
       </div>
     </div>
+    <div class="pon-confirm" @click="handlerConfirm">
+      <simple-button
+        text="确定"
+        color="#333333"
+        fontSize="28rpx"
+        fontWeight="bold"
+        backgroundColor="#D7BA79"
+        width="690rpx"
+        height="72rpx"
+        borderRadius="32rpx"
+      ></simple-button>
+    </div>
   </div>
 </template>
 
 <script>
 import simpleButton from "@/components/button/simpleButton";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import nativeMgr from "@/native/NativeMgr";
+let native = nativeMgr.getNative();
 export default {
-  data() {
-    return {
-      tagList: [
-        {
-          id: 1,
-          text: "不要辣"
-        },
-        {
-          id: 2,
-          text: "少点辣"
-        },
-        {
-          id: 3,
-          text: "多点辣"
-        },
-        {
-          id: 4,
-          text: "不要香菜"
-        },
-        {
-          id: 5,
-          text: "不要洋葱"
-        },
-        {
-          id: 6,
-          text: "多点醋"
-        },
-        {
-          id: 7,
-          text: "多点葱"
-        }
-      ]
-    };
-  },
   components: {
     simpleButton
+  },
+  methods: {
+    handlerConfirm() {
+      this.actTrigger(this.text);
+      native.navigateBack();
+    },
+    handlerSelect(tagId) {
+      let index = this.tagList.findIndex(tag => tag.id == tagId);
+      let text = this.tagList[index].text;
+      this.setText(this.text + text);
+    },
+    ...mapActions("storePages/storePageNote", ["actTrigger"]),
+    ...mapMutations("storePages/storePageNote", ["setText"])
+  },
+  computed: {
+    textLength() {
+      return this.text.length;
+    },
+    ...mapGetters("storePages/storePageNote", {
+      tagList: "getTagList",
+      text: "getText"
+    })
   }
 };
 </script>
@@ -108,5 +111,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.pon-confirm {
+  margin-top: 30rpx;
 }
 </style>

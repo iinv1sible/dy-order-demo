@@ -18,7 +18,7 @@
           :color="method===2?'#D7BA79':'#fff'"
           fontSize="28rpx"
           :backgroundColor="method===2?'#fff':'#BFA260'"
-          width="220rpx"
+          width="240rpx"
           height="70rpx"
           borderRadius="35rpx"
         ></simple-button>
@@ -26,7 +26,11 @@
     </div>
     <div class="poc-method-form">
       <div v-if="method === 1">
-        <express-form></express-form>
+        <express-form
+          :arriveTimeText="selectedTreeNode.text"
+          @selectTime="handlerSelectTime"
+          @selectAddress="handlerSelectAddress"
+        ></express-form>
       </div>
       <div v-if="method === 2">
         <self-form></self-form>
@@ -46,7 +50,18 @@
       <order-extra-info-form @noteClick="handlerNoteClick"></order-extra-info-form>
     </div>
     <div class="poc-pay-bar">
-      <pay-bar></pay-bar>
+      <pay-bar
+        @confirm="handlerConfirm"
+        :totalCostDesc="cartItemListWithCost.cartCost.totalCostDesc"
+      ></pay-bar>
+    </div>
+    <div v-if="showTimePicker">
+      <tree-picker
+        @confirm="handlerConfirmSelectTime"
+        @close="handlerCloseSelectTime"
+        @selectSubNode="handlerSelectSubNode"
+        :data="treePickerData"
+      ></tree-picker>
     </div>
   </div>
 </template>
@@ -60,19 +75,29 @@ import simpleButton from "@/components/button/simpleButton";
 import payBar from "@/components/pages/pageOrderConfirm/payBar";
 import { mapGetters, mapMutations } from "vuex";
 import nativeMgr from "@/native/NativeMgr";
+import treePicker from "@/components/treePicker/treePicker";
 let native = nativeMgr.getNative();
 export default {
+  data() {
+    return {
+      showTimePicker: false
+    };
+  },
   components: {
     expressForm,
     selfForm,
     orderItemInfo,
     orderExtraInfoForm,
     simpleButton,
-    payBar
+    payBar,
+    treePicker
   },
   computed: {
     ...mapGetters("storePages/storePageOrderConfirm", {
-      method: "getMethod"
+      method: "getMethod",
+      note: "getNote",
+      treePickerData: "getTreePickerData",
+      selectedTreeNode: "getSelectedTreeNode"
     }),
     ...mapGetters("storeGlobal", {
       cartItemListWithCost: "getCartItemListWithCost",
@@ -80,13 +105,42 @@ export default {
     })
   },
   methods: {
+    handlerConfirmSelectTime() {
+      this.showTimePicker = false;
+    },
+    handlerConfirm() {
+      native.nav2("/pages/orderDetail/main");
+    },
+    handlerCloseSelectTime() {
+      this.showTimePicker = false;
+    },
+    handlerSelectTime() {
+      this.showTimePicker = true;
+    },
+    handlerSelectSubNode(index) {
+      this.treePickerData.selectedSubNodeIndex = index;
+      this.setTreePickerData(this.treePickerData);
+    },
+    handlerSelectAddress() {
+      native.nav2("/pages/address/main");
+    },
     handlerNoteClick() {
+      this.setText(this.note);
+      this.setCallback(text => {
+        console.log("handlerNoteClick" + text);
+        this.setNote(text);
+      });
       native.nav2("/pages/orderNote/main");
     },
     handlerSelectMethod(method) {
       this.setMethod(method);
     },
-    ...mapMutations("storePages/storePageOrderConfirm", ["setMethod"])
+    ...mapMutations("storePages/storePageNote", ["setCallback", "setText"]),
+    ...mapMutations("storePages/storePageOrderConfirm", [
+      "setMethod",
+      "setNote",
+      "setTreePickerData"
+    ])
   }
 };
 </script>
@@ -116,7 +170,7 @@ page {
 .poc-header-self {
   position: absolute;
   top: 44rpx;
-  left: 182rpx;
+  left: 180rpx;
   z-index: 1;
 }
 .poc-method-form {

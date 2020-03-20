@@ -10,7 +10,7 @@ let storePageIndex = {
       "/static/images/img03.png"
     ],
     headerLocationText: "浙江省宁波市鄞州区鄞州科技孵化园...",
-    navigationBarTitle: "天港禧悦",
+    navigationBarTitle: "预订小程序演示版",
     officialFoodImgConfig: {
       list: [
         {

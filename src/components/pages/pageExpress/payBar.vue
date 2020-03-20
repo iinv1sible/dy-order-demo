@@ -21,7 +21,7 @@
           height="44rpx"
           :text="cartItemList.length"
           backgroundColor="#E51C23"
-          borderRadius="4rpx"
+          borderRadius="100%"
           fontColor="#fff"
           fontSize="24rpx"
         ></bubble>
@@ -89,7 +89,7 @@ export default {
   margin-left: 22rpx;
 }
 .pb-now-cost {
-  margin-left: 16rpx;
+  margin-left: 8rpx;
   color: #fff;
   font-size: 32rpx;
   font-weight: bold;
@@ -101,13 +101,13 @@ export default {
   font-weight: bold;
 }
 .pb-origin-cost {
-  margin-left: 14rpx;
+  margin-left: 8rpx;
   color: #ccc;
   font-size: 32rpx;
   font-weight: bold;
 }
 .pb-express-cost {
-  margin-left: 30rpx;
+  margin-left: 8rpx;
   color: #bfbdbd;
   font-size: 24rpx;
 }
