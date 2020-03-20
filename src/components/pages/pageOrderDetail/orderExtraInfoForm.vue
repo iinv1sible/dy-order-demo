@@ -7,7 +7,7 @@
         <qicon path="/static/icon/arrow-right.png" size="36rpx"></qicon>
       </div>
     </div>
-    <div class="oeif-receipt">
+    <div @click="handlerShowReceipt" class="oeif-receipt">
       <text>发票信息</text>
       <div>
         <text>抬头|税号</text>
@@ -24,6 +24,9 @@ export default {
     qicon
   },
   methods: {
+    handlerShowReceipt() {
+      this.$emit("showReceipt");
+    },
     onNoteClick() {
       this.$emit("noteClick");
     }

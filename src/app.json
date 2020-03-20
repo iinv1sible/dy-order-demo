@@ -26,7 +26,8 @@
     "pages/vr/main",
     "pages/anxin/main",
     "pages/webView/main",
-    "pages/banquet/main"
+    "pages/banquet/main",
+    "pages/receipt/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

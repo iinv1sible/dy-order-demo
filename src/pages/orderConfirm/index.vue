@@ -47,7 +47,7 @@
       ></order-item-info>
     </div>
     <div class="poc-order-extra-info-form">
-      <order-extra-info-form @noteClick="handlerNoteClick"></order-extra-info-form>
+      <order-extra-info-form @showReceipt="handlerShowReceipt" @noteClick="handlerNoteClick"></order-extra-info-form>
     </div>
     <div class="poc-pay-bar">
       <pay-bar
@@ -105,6 +105,9 @@ export default {
     })
   },
   methods: {
+    handlerShowReceipt() {
+      native.nav2("/pages/receipt/main");
+    },
     handlerConfirmSelectTime() {
       this.showTimePicker = false;
     },
