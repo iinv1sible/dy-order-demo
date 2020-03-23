@@ -1,21 +1,30 @@
 <template>
   <cover-view class="ap-container">
     <cover-view class="ap-top">
-      <cover-image class="ap-top-bg" src="/static/icon/anxinbg.png"></cover-image>
+      <cover-image
+        class="ap-top-bg"
+        src="/static/icon/anxinbg.png"
+      ></cover-image>
       <cover-view class="ap-title">
         <cover-view>安心卡</cover-view>
       </cover-view>
       <cover-view class="ap-msg">尊敬的张先生，</cover-view>
-      <cover-view style="margin-top:26rpx" class="ap-msg">为保证您的用餐安全皆可追踪，疫情期间，我们将为您的每次用餐准备安心卡，您的就餐</cover-view>
+      <cover-view style="margin-top:26rpx" class="ap-msg"
+        >为保证您的用餐安全皆可追踪，疫情期间，我们将为您的每次用餐准备安心卡，您的就餐</cover-view
+      >
       <cover-view class="ap-order">2020-03-04 午餐 柳浪闻莺</cover-view>
       <cover-view class="ap-msg">安心卡已更新，请查看。</cover-view>
-      <cover-view class="ap-record-time">记录时间：2020年3月4日</cover-view>
+      <cover-view class="ap-record-time">演示使用</cover-view>
       <cover-view @click="hanlderShowAnxinDetail" class="ap-btn">
         <cover-view>立即查看</cover-view>
       </cover-view>
     </cover-view>
     <cover-view class="ap-bottom">
-      <cover-image @click="handlerClose" class="ap-close" src="/static/icon/close-white.png"></cover-image>
+      <cover-image
+        @click="handlerClose"
+        class="ap-close"
+        src="/static/icon/close-white.png"
+      ></cover-image>
     </cover-view>
   </cover-view>
 </template>

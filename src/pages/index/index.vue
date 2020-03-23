@@ -28,7 +28,11 @@
           <div class="index-shop-activity-title">- 精彩活动 -</div>
           <div class="index-shop-activity-container">
             <div v-for="activity in activities" :key="id">
-              <activity :path="activity.path" :title="activity.title" :valid="activity.valid"></activity>
+              <activity
+                :path="activity.path"
+                :title="activity.title"
+                :valid="activity.valid"
+              ></activity>
             </div>
           </div>
         </div>
@@ -40,7 +44,11 @@
     <cover-view v-if="showAnxinPopup" class="pi-anxin-popup">
       <anxin-popup @close="handlerClose"></anxin-popup>
     </cover-view>
-    <div @click="handlerScroll2Top" v-if="showScroll2TopButton" class="pi-scroll-2-top">
+    <div
+      @click="handlerScroll2Top"
+      v-if="showScroll2TopButton"
+      class="pi-scroll-2-top"
+    >
       <qicon size="60rpx" path="/static/icon/scroll-2-top.png"></qicon>
     </div>
   </div>

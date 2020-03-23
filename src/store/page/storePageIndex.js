@@ -15,15 +15,15 @@ let storePageIndex = {
       list: [
         {
           src: "/static/icon/food3.png",
-          text: "门面"
+          text: "演示使用"
         },
         {
           src: "/static/icon/food1.png",
-          text: "麻婆豆腐"
+          text: "演示使用"
         },
         {
           src: "/static/icon/food2.png",
-          text: "甜品"
+          text: "演示使用"
         }
       ]
     },

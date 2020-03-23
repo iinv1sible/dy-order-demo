@@ -9,14 +9,25 @@
     </div>-->
     <div class="pp-button-list">
       <div @click="handlerClickAdress">
-        <arrow-icon-button :showArrow="false" iconPath="/static/icon/car.png" text="收餐地址"></arrow-icon-button>
+        <arrow-icon-button
+          :showArrow="false"
+          iconPath="/static/icon/car.png"
+          text="收餐地址"
+        ></arrow-icon-button>
       </div>
       <!-- <div>
         <arrow-icon-button iconPath="/static/icon/question.png" text="意见反馈"></arrow-icon-button>
       </div>-->
       <div @click="handlerPhoneCall">
-        <arrow-icon-button :showArrow="true" iconPath="/static/icon/contact.png" text="联系我们"></arrow-icon-button>
+        <arrow-icon-button
+          :showArrow="true"
+          iconPath="/static/icon/contact.png"
+          text="联系我们"
+        ></arrow-icon-button>
       </div>
+    </div>
+    <div class="bottom-load-more">
+      <div>以上均为演示使用信息</div>
     </div>
   </div>
 </template>
@@ -85,5 +96,14 @@ page {
   margin-top: -10rpx;
   z-index: 1;
   position: absolute;
+}
+.bottom-load-more {
+  color: #e1e1e1;
+  font-size: 28rpx;
+  width: 140rpx;
+  width: 750rpx;
+  display: flex;
+  justify-content: center;
+  padding: 30rpx 0;
 }
 </style>

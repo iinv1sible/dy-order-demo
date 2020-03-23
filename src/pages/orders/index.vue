@@ -46,6 +46,9 @@
         ></express-order-item>
       </div>
     </div>
+    <div class="bottom-load-more">
+      <div>以上均为演示使用信息，无实际订单服务</div>
+    </div>
   </div>
 </template>
 
@@ -118,5 +121,14 @@ page {
 .po-search {
   background-color: #fff;
   padding: 10rpx 22rpx 20rpx 22rpx;
+}
+.bottom-load-more {
+  color: #e1e1e1;
+  font-size: 28rpx;
+  width: 140rpx;
+  width: 750rpx;
+  display: flex;
+  justify-content: center;
+  padding: 30rpx 0;
 }
 </style>

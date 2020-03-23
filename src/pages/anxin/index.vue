@@ -2,6 +2,7 @@
   <div class="acd-container">
     <div class="acd-top">
       <div class="acd-title">预订安心卡</div>
+      <div>演示使用</div>
       <div class="acd-order-info">订单： 2020-03-04 午餐 柳浪闻莺</div>
       <div class="acd-persons">
         <div class="acd-persons-header">
@@ -12,33 +13,55 @@
         <div class="acd-persons-list">
           <div v-for="person in persons" :key="id">
             <div>
-              <image style="width: 110rpx; height: 110rpx;" :src="person.icon" />
+              <image
+                style="width: 110rpx; height: 110rpx;"
+                :src="person.icon"
+              />
             </div>
             <div
               style="width: 174rpx;display: flex; flex-direction: column; justify-content: space-around;margin-left: 28rpx;"
             >
-              <div style="font-size: 28rpx;">{{person.jobDesc}}</div>
+              <div style="font-size: 28rpx;">{{ person.jobDesc }}</div>
               <div
                 style="display: flex; margin-top: 20rpx; background-color: #D4F3E0;padding: 6rpx 12rpx; align-items: center;border-radius: 8rpx;"
               >
-                <image src="/static/icon/search.png" style="width: 20rpx; height: 20rpx;" />
-                <div @click="showHealthCard(person)" style="margin-left: 10rpx;">查看健康证</div>
+                <image
+                  src="/static/icon/search.png"
+                  style="width: 20rpx; height: 20rpx;"
+                />
+                <div
+                  @click="showHealthCard(person)"
+                  style="margin-left: 10rpx;"
+                >
+                  查看健康证
+                </div>
               </div>
             </div>
             <div
               style="width: 100rpx;margin-left: 10rpx;display:flex;align-items:center;justify-content:center"
-            >{{person.name}}</div>
-            <div style="margin-left: 56rpx;">{{person.tempDesc}}</div>
+            >
+              {{ person.name }}
+            </div>
+            <div style="margin-left: 56rpx;">{{ person.tempDesc }}</div>
           </div>
         </div>
       </div>
       <div class="acd-record-time">记录时间：2020年3月5日</div>
       <div class="acd-qualification-button">
-        <image src="/static/icon/certificate.png" style="width: 30rpx;height: 30rpx;" />
-        <div @click="showQualificationImgs()" style=";margin-left: 20rpx;">门店资质展示</div>
+        <image
+          src="/static/icon/certificate.png"
+          style="width: 30rpx;height: 30rpx;"
+        />
+        <div @click="showQualificationImgs()" style=";margin-left: 20rpx;">
+          门店资质展示
+        </div>
       </div>
       <div class="acd-logo">
-        <image mode="widthFix" style="height: auto; width: 120rpx;" src="/static/images/logo.png" />
+        <image
+          mode="widthFix"
+          style="height: auto; width: 120rpx;"
+          src="/static/images/logo.png"
+        />
       </div>
       <div class="acd-doctor">
         <image
